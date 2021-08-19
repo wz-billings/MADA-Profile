@@ -4,14 +4,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Inconsolata|Yeseva+One')
 
 /* custom title font */
-title {
-  font-family: 'Yeseva One', serif;
+title, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Yeseva One', Times, serif;
   text-shadow: 4px 4px 4px #aaa;
+  font-face: bold;
 }
 
 /* Make the font big enough to actually read */
 body, td {
-  font-size: 24px;
+  font-size: 20px;
   font-family: 'Roboto', sans-serif;
 }
 code.r{
