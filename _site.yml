@@ -5,6 +5,7 @@ output:
     theme: cosmo
     highlight: zenburn
     toc: false
+    css: style.css
 navbar:
   type: inverse
   title: "My Data Analysis Portfolio"
@@ -21,4 +22,4 @@ navbar:
           href: ./tidytuesday.html
   right:
     - icon: fa-github fa-lg
-      href: URL-TO-THIS-REPOSITORY-HERE        
+      href: "https://github.com/wz-billings/ZaneBillings-MADA-portfolio" 
