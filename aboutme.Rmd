@@ -5,6 +5,64 @@ output:
     toc: FALSE
 ---
 
+# Welcome to my website.
 
-Add some text and a figure describing myself.
+Hello, everyone! My name is Zane Billings and I am a second-year PhD student in the data analysis and modeling program working with Dr. Handel. My work is on flu and I am really interested in the seasonal flu vaccine.
+
+I am also president of GSEB (Graduate Scholars of Epidemiology and Biostatistics) so you will probably see me around if you come to any department functions. Which you should because they are very good (my opinion is not biased, this is the objective truth).
+
+You can find my other website at [this link](https://wz-billings.rbind.io). One day my website will link to this page also, but it doesn't do that right now. You can go to my website and follow me on Twitter if you want to. You don't have to, but you're really missing out.
+
+```{r, out.width = "25%", fig.cap="This is a picture of me. My hair is shorter now though.", fig.align="center", echo = FALSE}
+knitr::include_graphics("me.png")
+```
+
+## Backstory
+I got my B.S. in cell biology and applied math at Western Carolina University in 2020, and wrote a senior thesis titled "Keratin modulation of autophagic flux in nutrient deprived HEK-293 cells" under the direction of Heather Coan. I don't do any research on keratin or autophagic flux now.
+
+During my undergrad work, I participated in an NSF/NIH funded REU program (Research Experience for Undergraduates) where I stayed at UGA during summer 2019 and did research with Dr. Handel's group. And somehow he let me come back, I am not sure how that happened.
+
+## Course goals and also my opinions
+
+1. I already do a lot of data analysis but I am mostly in this class to sharpen up on common methods and get some more practice.
+2. My goal is also to have fun, because when you're making plots and fitting models, how are you NOT having a great time?
+3. I also think that there's a lot of value in learning about data analysis from as many different people as possible, because so many people have different opinions about best practices.
+4. I don't have a lot of experience with predictive modeling or a lot of "machine learning" applications and I'm hoping to get a bit more experience in this area.
+
+# nested data frames, my one true love
+
+I also spend most of my work day coding in R and I am currently obsessed with using the package `purrr` as often as I can.
+
+> "Using `purrr::map` to apply functions over nested data frames...that's my **nindo**, my ninja way!"
+>
+> `r tufte::quote_footer('Naruto, in my dream world where Naruto is about data analysis')`
+
+My current favorite thing to mess with in my spare time is using `purrr` to map increasingly complex modeling functions to nested data frames. Recently I learned how to efficiently map bootstrap resampling (using the [strapgod package](https://davisvaughan.github.io/strapgod/index.html)) over nested data frames in order to calculate bootstrap CIs so I can avoid using tests. I don't like tests very much. If you have any interest in confidence intervals I highly recommend that you checkout strapgod because it is SO FAST. I can do 10000 bootstraps on a regular-size dataset in like 10 minutes, that's INSANE. I have opinions about confidence intervals and I really like the bootstrap, so I just think that this package is so cool. I've never listened to Eminem though so I'm ambivalent about the name.
+
+The strapgod package link is my mandatory link for this assignment but I'm also including it because I really think you should know about it. I added this section before I finished reading the instructions. Hopefully we will talk about bootstrapping at some point in the course so I can share how great this package is with everyone.
+
+# Hobbies or whatever
+
+I spend a lot of my time sleeping, or lying down wishing I was asleep. But when I am not working and not sleeping, I do some other things too.
+
+* Sometimes I read books, on days when I feel especially literate. In general I like a lot of different books, but some of my recent reads that I enjoyed are:
+  * "Bird Box" by Josh Mallerman;
+  * "The Haunting of Hill House" by Shirley Jackson;
+  * "We Have Always Lived in the Castle" by Shirley Jackson;
+  * "Darwin's Backyard" by James Costa;
+  * "Calling Bullshit" by Carl Bergstrom and Jevin West.
+* There are a few video games I like, but I'm not very good at them. I like RPGs (Fallout: New Vegas, Dragon Age Origins, and Dragon Quest IX are some of my favorites), and I have spent way too much of my limited time on earth playing Stardew Valley. `r emo::ji("grimace")`
+* I play (virtual) Dungeons and Dragons with my friends from high school almost every week. 
+
+# Fun facts
+
+* I have a certificate from the state of Montana (where I have never lived) which certifies that I am able to distinguish between black bears and grizzly bears. You might think that you can just look at the color, but that is often misleading!
+* I used to understand the plot of Kingdom Hearts, but I forgot 90% of it before Kingdom Hearts 3 finally came out.
+* I have a little sister who skateboards and plays the drums (she's way cooler than me).
+* I discovered [two](https://oeis.org/A319302) [novel](https://oeis.org/A309092) sequences of integers when I took a class on discrete math.
+* Here's my favorite statistics-related xkcd:
+
+```{r, out.width = "50%", fig.cap="Original link: https://xkcd.com/605/", fig.align="center", echo = FALSE}
+knitr::include_graphics("extrapolating.png")
+```
 

@@ -5,10 +5,8 @@ output:
     toc: FALSE
 ---
 
-# Hello
-
-Welcome to **my website** and _data analysis portfolio._ 
-
+Welcome to my MADA 2021 data analysis portfolio. 
 
 * Please use the `Menu Bar` above to look around.
 * Have fun!
+* [Here's a link to the `purrr` package website](https://purrr.tidyverse.org/). I love `purrr` and think more people should know about this excellent package.
