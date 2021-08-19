@@ -35,6 +35,8 @@ I also spend most of my work day coding in R and I am currently obsessed with us
 
 My current favorite thing to mess with in my spare time is using `purrr` to map increasingly complex modeling functions to nested data frames. Recently I learned how to efficiently map bootstrap resampling (using the [strapgod package](https://davisvaughan.github.io/strapgod/index.html)) over nested data frames in order to calculate bootstrap CIs so I can avoid using tests. I don't like tests very much. If you have any interest in confidence intervals I highly recommend that you checkout strapgod because it is SO FAST. I can do 10000 bootstraps on a regular-size dataset in like 10 minutes, that's INSANE. I have opinions about confidence intervals and I really like the bootstrap, so I just think that this package is so cool. I've never listened to Eminem though so I'm ambivalent about the name.
 
+The strapgod package link is my mandatory link for this assignment but I'm also including it because I really think you should know about it. I added this section before I finished reading the instructions. Hopefully we will talk about bootstrapping at some point in the course so I can share how great this package is with everyone.
+
 # Hobbies or whatever
 
 I spend a lot of my time sleeping, or lying down wishing I was asleep. But when I am not working and not sleeping, I do some other things too.
@@ -48,4 +50,10 @@ I spend a lot of my time sleeping, or lying down wishing I was asleep. But when 
 * I have a certificate from the state of Montana (where I have never lived) which certifies that I am able to distinguish between black bears and grizzly bears. You might think that you can just look at the color, but that is often misleading!
 * I used to understand the plot of Kingdom Hearts, but I forgot 90% of it before Kingdom Hearts 3 finally came out.
 * I have a little sister who skateboards and plays the drums (she's way cooler than me).
-* I discovered two novel sequences of integers when I took a class on discrete math. You can see them on the Online Encyclopedia of Integer Sequence (OEIS).
+* I discovered [two](https://oeis.org/A319302) [novel](https://oeis.org/A309092) sequences of integers when I took a class on discrete math.
+* Here's my favorite statistics-related xkcd:
+
+```{r, out.width = "50%", fig.cap="Original link: https://xkcd.com/605/", fig.align="center", echo = FALSE}
+knitr::include_graphics("extrapolating.png")
+```
+
