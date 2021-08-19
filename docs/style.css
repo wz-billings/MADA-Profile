@@ -1,0 +1,23 @@
+/* CSS for Zane's MADA website! */
+
+/* import fonts */
+@import url('https://fonts.googleapis.com/css?family=Roboto|Inconsolata|Yeseva+One')
+
+/* custom title font */
+title {
+  font-family: 'Yeseva One', serif;
+  text-shadow: 4px 4px 4px #aaa;
+}
+
+/* Make the font big enough to actually read */
+body, td {
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+}
+code.r{
+  font-size: 18px;
+  font-family: 'Inconsolata', monospace;
+}
+pre {
+  font-size: 18px;
+}
