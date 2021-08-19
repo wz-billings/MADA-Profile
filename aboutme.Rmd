@@ -7,7 +7,11 @@ output:
 
 # Welcome to my website.
 
-Hello, everyone! My name is Zane Billings and I am a second-year PhD student in the data analysis and modeling program working with Dr. Handel. I am also president of GSEB (Graduate Scholars of Epidemiology and Biostatistics) so you will probably see me around if you come to any department functions. Which you should because they are very good (my opinion is not biased, this is the objective truth). You can find my other website at [this link](https://wz-billings.rbind.io). One day my website will link to this page also, but it doesn't do that right now. You can go to my website and follow me on Twitter if you want to. You don't have to, but you're really missing out.
+Hello, everyone! My name is Zane Billings and I am a second-year PhD student in the data analysis and modeling program working with Dr. Handel. My work is on flu and I am really interested in the seasonal flu vaccine.
+
+I am also president of GSEB (Graduate Scholars of Epidemiology and Biostatistics) so you will probably see me around if you come to any department functions. Which you should because they are very good (my opinion is not biased, this is the objective truth).
+
+You can find my other website at [this link](https://wz-billings.rbind.io). One day my website will link to this page also, but it doesn't do that right now. You can go to my website and follow me on Twitter if you want to. You don't have to, but you're really missing out.
 
 ```{r, out.width = "25%", fig.cap="This is a picture of me. My hair is shorter now though.", fig.align="center", echo = FALSE}
 knitr::include_graphics("me.png")
@@ -16,7 +20,7 @@ knitr::include_graphics("me.png")
 ## Backstory
 I got my B.S. in cell biology and applied math at Western Carolina University in 2020, and wrote a senior thesis titled "Keratin modulation of autophagic flux in nutrient deprived HEK-293 cells" under the direction of Heather Coan. I don't do any research on keratin or autophagic flux now.
 
-During my undergrad work, I participated in an NSF/NIH funded REU program (Research Experience for Undergraduates) where I stayed at UGA during summer 2019 and did research with Dr. Handel's group. And somehow he let me come back, I am not sure how that happened. I took every stats class offered at my undergrad school which was...4 classes. But I love data analysis and statistics so I actually payed attention in those classes and learned more than I was supposed to. And now I am here so I guess that worked out.
+During my undergrad work, I participated in an NSF/NIH funded REU program (Research Experience for Undergraduates) where I stayed at UGA during summer 2019 and did research with Dr. Handel's group. And somehow he let me come back, I am not sure how that happened.
 
 ## Course goals and also my opinions
 
@@ -41,7 +45,12 @@ The strapgod package link is my mandatory link for this assignment but I'm also 
 
 I spend a lot of my time sleeping, or lying down wishing I was asleep. But when I am not working and not sleeping, I do some other things too.
 
-* Sometimes I read books, on days when I feel especially literate. I recently read "Bird Box" which I thought was pretty good. And of course Sandra Bullock was excellent in the movie. In general I like a lot of different books, but lately I've been reading a lot of "horror" novels. I use the word "horror" in the loosest possible sense because I don't think "The Haunting of Hill House" is a horror novel but that's the category it's in on goodreads dot com.
+* Sometimes I read books, on days when I feel especially literate. In general I like a lot of different books, but some of my recent reads that I enjoyed are:
+  * "Bird Box" by Josh Mallerman;
+  * "The Haunting of Hill House" by Shirley Jackson;
+  * "We Have Always Lived in the Castle" by Shirley Jackson;
+  * "Darwin's Backyard" by James Costa;
+  * "Calling Bullshit" by Carl Bergstrom and Jevin West.
 * There are a few video games I like, but I'm not very good at them. I like RPGs (Fallout: New Vegas, Dragon Age Origins, and Dragon Quest IX are some of my favorites), and I have spent way too much of my limited time on earth playing Stardew Valley. `r emo::ji("grimace")`
 * I play (virtual) Dungeons and Dragons with my friends from high school almost every week. 
 
