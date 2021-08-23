@@ -1,10 +1,189 @@
 ---
-title: "R coding Exercise"
+title: "Zane's `R` Coding Exercise"
 output: 
   html_document:
     toc: FALSE
+editor_options:
+  chunk_output_type: console
 ---
 
-This will contain the future R coding exercise.
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(include = TRUE, echo = TRUE)
+```
 
+For this exercise, I want to work on the `gapminder` data from the `dslabs` package. First, I want to get an idea of what this dataset looks like.
 
+```{r importing data}
+# The dslabs package is where the data we want to use lives.
+library(dslabs)
+
+# We also need the tidyverse package for analysis later.
+library(tidyverse)
+
+# Use the scales package to make plot labels nicer
+library(scales)
+
+# Open the help file for the gapminder data to examine contents.
+help(gapminder)
+
+# Examine the structure of the gapminder data
+str(gapminder)
+
+# Get a summary of the gapminder data variables
+summary(gapminder)
+
+# Print the class of the gapminder object
+class(gapminder)
+```
+
+For this exercise, I am only interested in the data from countries in Africa.
+
+```{r filtering rows}
+# Filter out records where the continent is "Africa"
+africadata <- gapminder %>%
+  dplyr::filter(continent == "Africa")
+
+# View structure and summary of the Africa-only data to see what changed.
+str(africadata)
+summary(africadata)
+```
+
+The two relationships I am interested in are:
+* infant mortality and life expectancy, and
+* population and life expectancy.
+
+```{r selecting columns}
+# Create a data frame with only infant mortality and life expectancy
+africa_im_le <- africadata %>%
+  dplyr::select(infant_mortality, life_expectancy)
+
+str(africa_im_le)
+summary(africa_im_le)
+
+# Create a data frame with only population size and life expectancy
+africa_ps_le <- africadata %>%
+  dplyr::select(population, life_expectancy)
+
+str(africa_ps_le)
+summary(africa_ps_le)
+```
+
+Next I will visualize these two relationships.
+
+```{r plotting}
+# scatterplot of life expectancy vs infant mortality
+africa_im_le %>%
+  # define which fields to plot
+  ggplot(aes(x = infant_mortality, y = life_expectancy)) +
+  # make the plot a scatterplot
+  geom_point() +
+  # change the way the plot looks (i.e. changing "non-data ink")
+  theme_bw() +
+  # make the axis titles nicer
+  labs(
+    x = "Infant mortality (deaths per 1000)",
+    y = "Life expectancy (years)"
+  )
+
+# scatterplot of life expectancy vs population size
+africa_ps_le %>%
+  # define which fields to plot
+  ggplot(aes(x = population, y = life_expectancy)) +
+  # make the plot a scatterplot
+  geom_point() +
+  # change the way the plot looks
+  theme_bw() +
+  # Make the axis titles nicer
+  labs(
+    x = "Population",
+    y = "Life expectancy (years)"
+  ) +
+  # customize the x-axis scale
+  scale_x_continuous(
+    # use a log scale for population size
+    trans = "log10",
+    # format the values with commas rather than scientific notation
+    labels = scales::comma
+  )
+```
+
+Uh-oh! We can see that due to the inclusion of multiple years for each country, there is clearly autocorrelation and this makes the graphs look quite weird. We also got an error about missing data, with more data points missing for life expectancy.
+
+Now I only want to plot one year at a time, so I will combine this with the missing data. First, I can find which years have missing data, and then I can choose a year to plot which does not have (or has the least amount of) missing values.
+
+```{r missing data processing}
+africadata %>%
+  # Filter for any rows where either variable is NA (missing)
+  dplyr::filter(is.na(infant_mortality) | is.na(life_expectancy)) %>%
+  # Count up the number of missing records for each year
+  dplyr::count(year, sort = TRUE, name = "# records missing")
+```
+
+It appears that for either of these two fields, there are missing records in 2016, and for years from 1961 through 1981. I will use the year 2000 for the next plot.
+
+```{r filter 2000}
+# Filter only records where the year is 2000
+africadata_2000 <- africadata %>%
+  filter(year == 2000)
+
+# Check to see if everything worked alright
+str(africadata_2000)
+summary(africadata_2000)
+```
+
+Now I can remake the plots using only the data from the year 2000, solving both plotting problems at the same time.
+
+```{r plotting 2000 only}
+# scatterplot of life expectancy vs infant mortality
+africadata_2000 %>%
+  # define which fields to plot
+  ggplot(aes(x = infant_mortality, y = life_expectancy)) +
+  # make the plot a scatterplot
+  geom_point() +
+  # change the way the plot looks (i.e. changing "non-data ink")
+  theme_bw() +
+  # make the axis titles nicer
+  labs(
+    x = "Infant mortality (deaths per 1000)",
+    y = "Life expectancy (years)"
+  )
+
+# scatterplot of life expectancy vs population size
+africadata_2000 %>%
+  # define which fields to plot
+  ggplot(aes(x = population, y = life_expectancy)) +
+  # make the plot a scatterplot
+  geom_point() +
+  # change the way the plot looks
+  theme_bw() +
+  # Make the axis titles nicer
+  labs(
+    x = "Population",
+    y = "Life expectancy (years)"
+  ) +
+  # customize the x-axis scale
+  scale_x_continuous(
+    # use a log scale for population size
+    trans = "log10",
+    # format the values with commas rather than scientific notation
+    labels = scales::comma
+  )
+```
+
+Now we have a good idea what the relationships look like: I expect a negative linear relationship between life expectancy and infant mortality, and no relationship between life expectancy and population.
+
+I will fit a simple linear model to test both of these predictions.
+
+```{r linear model}
+# Fit both of the simple linear models
+fit1 <- lm(life_expectancy ~ infant_mortality, data = africadata_2000)
+fit2 <- lm(life_expectancy ~ population, data = africadata_2000)
+
+# Get information about both of the models
+summary(fit1)
+summary(fit2)
+```
+
+From the first model (with infant mortality as the predictor), I obtain an estimated slope of about `r round(coef(fit1)[[2]], 2)` (*p* < 0.001). Thus, I conclude that for African countries in the year 2000, an increase of 1 infant death out of every 1000 births was associated with a decrease of `r round(abs(coef(fit1)[[2]]), 2)` years in life expectancy (about `r round(coef(fit1)[[2]], 2) * 12` months).
+
+From the second model (with population size as the predictor), I obtained a very very small slope which rounds to 0 unless I use an unreasonable amount of precision. Since the *p*-value is also quite large (*p* = `r round(summary(fit2)$coefficients[[2, 4]], 4)`), I think it is reasonable to conclude that there was no (linear) relationship between life expectancy and population size for African countries in the year 2000.
