@@ -116,7 +116,7 @@ dplyr::glimpse(plot_data)
 
 Now, we can start making the actual plot. My main strategy for making this plot is to create a US map colored by state, apply a blank theme to the plot, and facet the plot by season week (with 4 columns in the grid).The only thing about the provided plot that I think will be really difficult to do in ggplot is the way the legend is structured, as legends in ggplot are really not very flexible. If I figure out a way to do the legend like this, I'll update this page with the solution, but for now I don't think this is possible with `ggplot2`. (Though I admit I could be wrong, I am just saying I am not going to try to figure it out for the purpose of this assignment).
 
-```{r, out.width='90%'}
+```{r, out.width="110%"}
 plot_usmap(data = plot_data, regions = "states", values = "activity_level", color = "white") +
   facet_wrap(~week_label, ncol = 4) +
   theme(
@@ -126,7 +126,8 @@ plot_usmap(data = plot_data, regions = "states", values = "activity_level", colo
     legend.justification = "center",
     legend.title = element_text(size = 14, face = "bold"),
     legend.text = element_text(size = 10, face = "bold"),
-    plot.caption = element_text(size = 14)
+    plot.caption = element_text(size = 14),
+    plot.margin = margin(0,0,0,0)
   ) +
   scale_fill_manual(
     name = "Influenza-like Illness Activity Level",
