@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>About me</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Data Analysis Portfolio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="./aboutme.html">About Me</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="./rcoding.html">R Coding</a>
+    </li>
+    <li>
+      <a href="./visualization.html">Visualization</a>
+    </li>
+    <li>
+      <a href="./tidytuesday.html">Tidy Tuesday</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wz-billings/ZaneBillings-MADA-portfolio">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">About me</h1>
+
+</div>
+
+
+<div id="welcome-to-my-website." class="section level1">
+<h1>Welcome to my website.</h1>
+<p>Hello, everyone! My name is Zane Billings and I am a second-year PhD student in the data analysis and modeling program working with Dr. Handel. My work is on flu and I am really interested in the seasonal flu vaccine.</p>
+<p>I am also president of GSEB (Graduate Scholars of Epidemiology and Biostatistics) so you will probably see me around if you come to any department functions. Which you should because they are very good (my opinion is not biased, this is the objective truth).</p>
+<p>You can find my other website at <a href="https://wz-billings.rbind.io">this link</a>. One day my website will link to this page also, but it doesn’t do that right now. You can go to my website and follow me on Twitter if you want to. You don’t have to, but you’re really missing out.</p>
+<div class="figure" style="text-align: center">
+<img src="me.png" alt="This is a picture of me. My hair is shorter now though." width="25%" />
+<p class="caption">
+This is a picture of me. My hair is shorter now though.
+</p>
+</div>
+<div id="backstory" class="section level2">
+<h2>Backstory</h2>
+<p>I got my B.S. in cell biology and applied math at Western Carolina University in 2020, and wrote a senior thesis titled “Keratin modulation of autophagic flux in nutrient deprived HEK-293 cells” under the direction of Heather Coan. I don’t do any research on keratin or autophagic flux now.</p>
+<p>During my undergrad work, I participated in an NSF/NIH funded REU program (Research Experience for Undergraduates) where I stayed at UGA during summer 2019 and did research with Dr. Handel’s group. And somehow he let me come back, I am not sure how that happened.</p>
+</div>
+<div id="course-goals-and-also-my-opinions" class="section level2">
+<h2>Course goals and also my opinions</h2>
+<ol style="list-style-type: decimal">
+<li>I already do a lot of data analysis but I am mostly in this class to sharpen up on common methods and get some more practice.</li>
+<li>My goal is also to have fun, because when you’re making plots and fitting models, how are you NOT having a great time?</li>
+<li>I also think that there’s a lot of value in learning about data analysis from as many different people as possible, because so many people have different opinions about best practices.</li>
+<li>I don’t have a lot of experience with predictive modeling or a lot of “machine learning” applications and I’m hoping to get a bit more experience in this area.</li>
+</ol>
+</div>
+</div>
+<div id="nested-data-frames-my-one-true-love" class="section level1">
+<h1>nested data frames, my one true love</h1>
+<p>I also spend most of my work day coding in R and I am currently obsessed with using the package <code>purrr</code> as often as I can.</p>
+<blockquote>
+<p>“Using <code>purrr::map</code> to apply functions over nested data frames…that’s my <strong>nindo</strong>, my ninja way!”</p>
+<footer>
+Naruto, in my dream world where Naruto is about data analysis
+</footer>
+</blockquote>
+<p>My current favorite thing to mess with in my spare time is using <code>purrr</code> to map increasingly complex modeling functions to nested data frames. Recently I learned how to efficiently map bootstrap resampling (using the <a href="https://davisvaughan.github.io/strapgod/index.html">strapgod package</a>) over nested data frames in order to calculate bootstrap CIs so I can avoid using tests. I don’t like tests very much. If you have any interest in confidence intervals I highly recommend that you checkout strapgod because it is SO FAST. I can do 10000 bootstraps on a regular-size dataset in like 10 minutes, that’s INSANE. I have opinions about confidence intervals and I really like the bootstrap, so I just think that this package is so cool. I’ve never listened to Eminem though so I’m ambivalent about the name.</p>
+<p>The strapgod package link is my mandatory link for this assignment but I’m also including it because I really think you should know about it. I added this section before I finished reading the instructions. Hopefully we will talk about bootstrapping at some point in the course so I can share how great this package is with everyone.</p>
+</div>
+<div id="hobbies-or-whatever" class="section level1">
+<h1>Hobbies or whatever</h1>
+<p>I spend a lot of my time sleeping, or lying down wishing I was asleep. But when I am not working and not sleeping, I do some other things too.</p>
+<ul>
+<li>Sometimes I read books, on days when I feel especially literate. In general I like a lot of different books, but some of my recent reads that I enjoyed are:
+<ul>
+<li>“Bird Box” by Josh Mallerman;</li>
+<li>“The Haunting of Hill House” by Shirley Jackson;</li>
+<li>“We Have Always Lived in the Castle” by Shirley Jackson;</li>
+<li>“Darwin’s Backyard” by James Costa;</li>
+<li>“Calling Bullshit” by Carl Bergstrom and Jevin West.</li>
+</ul></li>
+<li>There are a few video games I like, but I’m not very good at them. I like RPGs (Fallout: New Vegas, Dragon Age Origins, and Dragon Quest IX are some of my favorites), and I have spent way too much of my limited time on earth playing Stardew Valley. 😬</li>
+<li>I play (virtual) Dungeons and Dragons with my friends from high school almost every week.</li>
+</ul>
+</div>
+<div id="fun-facts" class="section level1">
+<h1>Fun facts</h1>
+<ul>
+<li>I have a certificate from the state of Montana (where I have never lived) which certifies that I am able to distinguish between black bears and grizzly bears. You might think that you can just look at the color, but that is often misleading!</li>
+<li>I used to understand the plot of Kingdom Hearts, but I forgot 90% of it before Kingdom Hearts 3 finally came out.</li>
+<li>I have a little sister who skateboards and plays the drums (she’s way cooler than me).</li>
+<li>I discovered <a href="https://oeis.org/A319302">two</a> <a href="https://oeis.org/A309092">novel</a> sequences of integers when I took a class on discrete math.</li>
+<li>Here’s my favorite statistics-related xkcd:</li>
+</ul>
+<div class="figure" style="text-align: center">
+<img src="extrapolating.png" alt="Original link: https://xkcd.com/605/" width="50%" />
+<p class="caption">
+Original link: <a href="https://xkcd.com/605/" class="uri">https://xkcd.com/605/</a>
+</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
