@@ -1,9 +1,518 @@
 ---
 title: "Tidy Tuesday"
 output: 
-  html_document:
+  bookdown::html_document2:
     toc: FALSE
+editor_options: 
+  chunk_output_type: console
 ---
 
-This will contain the future Tidy Tuesday exercise.
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# NBER papers data
+
+This week's Tidy Tuesday dataset is a dataset of non-peer-reviewed economic papers produced by the National Bureau of Economic Research (NBER). First things first, we need to load the data.
+
+At the time of writing, neither the CRAN nor GitHub versions of the `tidytuesdayR` package have been updated with the new data, so instead I will just get the data from the `nberwp` package. I've also chosen to load all necessary packages here.
+
+```{r packages, message = FALSE}
+library(nberwp) # contains data
+library(emo) # for emojis
+library(tidyverse) # for data cleaning, wrangling, and plotting
+library(lubridate) # for datetimes
+library(cowplot) # for theme_cowplot
+library(fastDummies) # for creating dummy variables from factors
+library(tidymodels) # for predictive modeling
+library(tidylo) # for log odds
+library(tidytext) # for feature engineering from unstructured text
+library(textrecipes) # for feature engineering from unstructured text
+library(stopwords) # needed for step_stopwords
+library(finetune) # for my favorite tuning methods
+library(lme4) # need for finetune
+library(glmnet) # for the model I want to fit
+library(colorblindr) # for better plot colors
+
+ggplot2::theme_set(cowplot::theme_cowplot())
+```
+
+# Data cleaning, wrangling, and exploration
+
+Now we can join all of the individual datasets together. The code for this was partially provided on the TidyTuesday GitHub page. In this section I will also do a little data cleaning to make sure variables are in the correct format for analysis. I've also filtered out any records that are missing the program category.
+
+```{r joining data}
+dat <- dplyr::left_join(papers, paper_authors, by = "paper") %>% 
+  dplyr::left_join(authors, by = "author") %>% 
+  dplyr::left_join(paper_programs, by = "paper") %>% 
+  dplyr::left_join(programs, by = "program") %>%
+  tidyr::drop_na(program_category) %>%
+  dplyr::mutate(
+    catalogue_group = stringr::str_sub(paper, 1, 1),
+    catalogue_group = factor(
+      dplyr::case_when(
+        catalogue_group == "h" ~ "Historical",
+        catalogue_group == "t" ~ "Technical",
+        catalogue_group == "w" ~ "General"
+      )
+    ),
+    program_category = dplyr::case_when(
+      program_category == "Macro/International" ~ "Macro",
+      TRUE ~ program_category
+    ),
+    paper_date = lubridate::ymd(paste0(year, "-", month, "-01")),
+    dplyr::across(dplyr::contains("program"), as.factor),
+    .after = paper
+  ) %>%
+  # Let's get rid of the variables that contain redundant information.
+  dplyr::select(-year, -month, -user_nber, -user_repec, -program, -author)
+
+dplyr::glimpse(dat)
+```
+
+We can see that the data has `r nrow(dat)` records while there are only `r length(unique(dat$paper))` paper IDs in the dataset, so each paper is currently represented by multiple records. I suspect that this occurs when papers have either multiple authors or associated programs.
+
+```{r number of authors per paper, fig.cap = "Most papers have 4 or less authors, however some have up to 17.", fig.alt = "A column chart with number of authors of a paper on the horizontal axis, and the number of papers with that many authors in the dataset on the y-axis."}
+dat %>%
+  dplyr::distinct(paper, name) %>%
+  dplyr::count(paper) %>%
+  ggplot(aes(x = n)) +
+  geom_bar(col = "black", fill = "gray") +
+  geom_label(aes(y = after_stat(count), label = after_stat(count)),
+             stat = "count", nudge_y = 500) +
+  scale_x_continuous(breaks = seq(1:17), expand = c(0, 0.1)) +
+  labs(
+    x = "number of authors on a paper",
+    y = "frequency"
+  )
+```
+
+```{r number of programs per paper, fig.cap = "Most papers have 4 or less associated programs, however some have up to 14.", fig.alt = "A column chart with number of programs associated with a on the horizontal axis, and the number of papers with that many associated programs in the dataset on the y-axis."}
+dat %>%
+  dplyr::distinct(paper, program_desc) %>%
+  dplyr::count(paper) %>%
+  ggplot(aes(x = n)) +
+  geom_bar(col = "black", fill = "gray") +
+  geom_label(aes(y = after_stat(count), label = after_stat(count)),
+             stat = "count", nudge_y = 500) +
+  scale_x_continuous(breaks = seq(1:14), expand = c(0, 0.1)) +
+  labs(
+    x = "number of programs associated with a paper",
+    y = "frequency"
+  )
+```
+
+It appears that this assumption is likely correctly. Since the author is unstructured text data that will likely not be very useful to us, and the programs would probably be better structured as a dummy variable, we will reformat this data into a wide form where author and program are one column with comma-separated values. This format should be relatively easy to use for feature engineering later.
+
+I'll leave the program descriptions and title alone for now--I think we can transform these into more informative text data. I don't think the authors will be very useful, but maybe counting them could be so I'll include a feature for that.
+
+```{r pivot}
+collapse_to_str <- function(.x, delim = ", ") {
+  paste0(sort(unique(.x)), collapse = delim)
+}
+
+dat_wide <- dat %>%
+  dplyr::group_by(paper) %>%
+  dplyr::summarize(
+    authors = collapse_to_str(name),
+    num_authors = length(unique(name)),
+    program_cats = collapse_to_str(program_category),
+    programs = collapse_to_str(program_desc),
+    .groups = "drop"
+  )
+
+LUT <- dat %>%
+  dplyr::select(paper, title, paper_date) %>%
+  dplyr::distinct()
+
+dat2 <- dat_wide %>%
+  dplyr::left_join(LUT, by = "paper")
+
+dplyr::glimpse(dat2)
+```
+
+After looking at the data, I think that there are a few interesting questions we could ask using topic modeling, which is what I really wanted to do when I saw this dataset. My heart's desire is to try and predict which categories a paper will have based on information like the title, date, number of authors, etc. (Not sure what other predictors might be derived from this dataset.) Note that each paper can have more than one category. We'll address this issue in a bit.
+
+# Data exploration
+
+We have a few potential predictors of interest:
+* Date published (month and year are potentially both predictors of category);
+* Number of authors a paper has; and
+* Any information which can be gleaned from the title of the paper.
+
+I do not plan to use any information about the authors (I suspect certain authors are strongly linked to which categories a paper has, but I just don't think this is very interesting, and would also perform poorly out-of-sample) or the programs (which are subdivisions of category). Let's try to explore each of these four potential predictors. In order to explore the effects on each category separately, we need to do one more data cleaning step: turning each of the categories into a dummy variable.
+
+```{r dummification}
+dat3 <- dat2 %>%
+  fastDummies::dummy_cols(
+    select_columns = c("program_cats"),
+    split = ",",
+    remove_selected_columns = TRUE
+  )
+
+dplyr::glimpse(dat3)
+```
+
+Having a version of this data in long form will be helpful as well.
+
+```{r long dummy}
+dat3_long <- dat3 %>%
+  pivot_longer(
+    cols = starts_with("program_cats"),
+    names_pattern = "program_cats_(.*)"
+  ) %>%
+  dplyr::filter(value != 0)
+```
+
+
+First, let's look at the overall effect of date, and then decompose this trend into year and month.
+
+```{r date counts, fig.cap = "The three groups are quite similar in early years, but the counts diverge for the groups over time. The bold curve is the LOESS trend.", fig.alt = "A line chart showing the number of papers released in a given month on the y-axis and the calendar date, from 1980 to 2020, on the x-axis. There is one line for each of the three paper categories. There is a smoothed LOESS curve for each group."}
+dat3_long %>%
+  dplyr::group_by(name, paper_date) %>%
+  dplyr::count() %>%
+  dplyr::ungroup() %>%
+  ggplot(aes(x = paper_date, y = n, color = name, fill = name)) +
+  geom_line(alpha = 0.6) +
+  geom_smooth(method = "loess") +
+  labs(
+    x = "calendar date",
+    y = "number of papers released in month",
+    color = "paper category",
+    fill = "paper category"
+  ) +
+  theme(legend.position = c(0.1, 0.7)) +
+  coord_cartesian(expand = FALSE)
+```
+
+Next let's look at the cumulative count.
+
+```{r date cumulative counts, fig.cap = "The cumulative counts over time show a similar trend to the overall counts.", fig.alt = "A line chart of cumulative number of papers released up to date vs. the calendar date. There is a separate line for each of the three paper categories."}
+dat3_long %>%
+  dplyr::group_by(name, paper_date) %>%
+  dplyr::count() %>%
+  dplyr::ungroup(paper_date) %>%
+  dplyr::arrange(paper_date) %>%
+  dplyr::mutate(nn = cumsum(n)) %>%
+  dplyr::ungroup() %>%
+  ggplot(aes(x = paper_date, y = nn, color = name)) +
+  geom_line(size = 1) +
+  labs(
+    x = "calendar date",
+    y = "cumulative number of papers released up to date",
+    color = "paper category"
+  ) +
+  theme(legend.position = c(0.1, 0.7)) +
+  colorblindr::scale_color_OkabeIto() +
+  coord_cartesian(expand = FALSE)
+```
+
+If we use a cumulative count over the month, we can look at the effect of year, smoothed to ignore any trend from the month.
+
+```{r year counts, fig.cap = "The trend for years shows exactly the same trend as the previous plots, indicating that the year contributes mainly to the overall trend. This is expected and unsurprising.", fig.alt = "A line plot with two facets. The left facet shows cumulative count of papers vs. calendar year, smoothed over months, and the right facet shows the count of papers published each month vs. calendar year. Both plots have one line for each paper category."}
+dat3_long %>%
+  dplyr::group_by(name, yr = lubridate::year(paper_date)) %>%
+  dplyr::count(name = "individual count") %>%
+  dplyr::ungroup(yr) %>%
+  dplyr::arrange(name, yr) %>%
+  dplyr::mutate("cumulative count" = cumsum(`individual count`)) %>%
+  dplyr::ungroup() %>%
+  tidyr::pivot_longer(
+    cols = ends_with("count"),
+    names_to = "how", values_to = "count"
+  ) %>%
+  ggplot(aes(x = yr, y = count, color = name)) +
+  geom_line(size = 1) +
+  facet_wrap(vars(how), scales = "free_y") +
+  labs(
+    x = "calendar year",
+    y = NULL,
+    color = "paper category"
+  ) +
+  theme(legend.position = "bottom", legend.justification = "center") +
+  colorblindr::scale_color_OkabeIto()
+```
+
+Finally, we can directly examine whether month has an effect or not.
+
+```{r month counts, fig.cap = "The dashed line in this plot shows the mean across all months. We see that across all three categories, there are really no noticeable deviations from this mean, except for maybe in July but this trend is so small it is not worth investigating. There appears to be no seasonality by month.", fig.alt = "A horizontal bar chart with three facets. The first facet (starting from the right) is for the finance category, the middle is for the macro category, and the left is for the micro category. All three charts show the mean number of papers published on the x-axis and the month on the y-axis. Each facet has a dashed line indicating the overall mean for each category."}
+dat3_long %>%
+  dplyr::group_by(name,
+                  mth = lubridate::month(paper_date, label = TRUE),
+                  yr = lubridate::year(paper_date)) %>%
+  dplyr::count() %>%
+  dplyr::ungroup(yr) %>%
+  dplyr::summarize(mean_monthly = mean(n)) %>%
+  dplyr::mutate(mean_category = mean(mean_monthly)) %>%
+  dplyr::ungroup() %>%
+  ggplot(aes(y = forcats::fct_rev(mth), x = mean_monthly)) +
+  geom_col(color = "black", fill = "gray") +
+  facet_wrap(vars(name), scales = "free_x") +
+  geom_vline(aes(xintercept = mean_category, group = name), size = 1, lty = 2) +
+  labs(x = "mean number of papers released", y = "month")
+```
+
+Now let's look at the effect of the number of authors.
+
+```{r author count effect, fig.cap = "The distribution of number of papers with a given number of authors appears to be similarly shaped across all three paper categories and is likely not predictive.", fig.alt = "A bar chart with three facets. The top is for the finance category, the middle is for the macro category, and the bottom is for the micro category. Each facet shows the number of authors on the x-axis, and the count of how many papers in the facet category have that number of authors on the y-axis."}
+dat3_long %>%
+  dplyr::group_by(num_authors, name) %>%
+  dplyr::count() %>%
+  ggplot(aes(x = as.factor(num_authors), y = n)) +
+  geom_col(color = "black", fill = "gray") +
+  facet_wrap(vars(name), ncol = 1, scales = "free_y") +
+  labs(x = "number of authors", y = "frequency")
+```
+
+Now we can take a look at the unstructured text data. This can be a bit complicated, but there are a few good visualizations. I am going to look at the effect of individual words only--*n*-grams could also potentially be predictive, but are more complicated. If I were being paid for this, I would probably at least look at bigrams, but I am not being paid for this.
+
+A quick note on stop words: sometimes, it is true that stop words can be predictive of certain categories. However, I simply do not think that these are very interesting predictors, so I am going to take them out. First let's process the text data.
+
+```{r text manip}
+dat3_tp <- dat3_long %>%
+  tidytext::unnest_tokens(word, title) %>%
+  dplyr::anti_join(tidytext::stop_words, by = "word") %>%
+  # Remove words that are numbers
+  dplyr::filter(stringr::str_detect(word, "[0-9]", negate = TRUE))
+```
+
+
+Now let's look at which words occur most frequently for each category.
+
+```{r word counts, fig.cap = "While some words overlap between categories, such as evidence, there are definitely differential word counts among the three groups. Since there are high-count words which overlap, we need to use a different measure to determine what title words are predictive of category.", fig.alt = "A bar chart with three facets, one for each of the three paper categories. Each bar chart shows the top ten most frequently occurring words in the titles of each category of paper."}
+dat3_tp %>%
+  group_by(name) %>%
+  count(word) %>%
+  slice_max(order_by = n, n = 10) %>%
+  ggplot(aes(x = n, y = tidytext::reorder_within(word, n, name))) +
+  geom_col(color = "black", fill = "gray") +
+  facet_wrap(vars(name), scales = "free") +
+  scale_y_reordered() +
+  labs(x = "frequency", y = NULL)
+```
+
+For our final exploratory plot, let's make a more complicated visualization: we can use the `tidylo` package to compute the log-odds of a word being associated with a particular category. There are a few pitfalls here (we will not be taking correlations between categories into account, notably), but for the sake of statistical simplicity I am going to ignore that. This can potentially be a lot more useful than raw counts for determining if a particular word will be predictive for a category.
+
+```{r word log odds, fig.cap = "Whereas the counts made it quite difficult to distinguish between categories due to overlap, we can see that there are unique words associated with each category that have large predictive power. For macro and micro categories, there are words that are both highly predictive and highly anti-predictive, while for finance there are words which are highly predictive, but not many words which are highly anti-predictive. The top 5 maximum and bottom 5 minimum log-odds words are shown for each category.", fig.alt = "A bar chart with three facets, one for each paper category. Each chart shows the five words with the highest and five words with the lowest weighted log-odds for that category."}
+dat3_tp %>%
+  group_by(name) %>%
+  count(word) %>%
+  ungroup() %>%
+  bind_log_odds(set = name, feature = word, n = n) %>%
+  group_by(name) %>%
+  mutate(lo = log_odds_weighted) %>%
+  arrange(lo) %>%
+  filter(row_number() > max(row_number()) - 5 | row_number() <= 5) %>%
+  ggplot(aes(x = lo, y = tidytext::reorder_within(word, lo, name))) +
+  geom_vline(xintercept = 0) +
+  geom_col(color = "black", fill = "gray") +
+  facet_wrap(vars(name), scales = "free_y") +
+  scale_y_reordered() +
+  labs(x = "weighted log-odds", y = NULL, fill = NULL) +
+  theme(legend.position = "bottom", legend.justification = "center")
+```
+
+OK, great. Now that we have explored our data a bit, we need to decide how we will actually model the categories.
+
+# Modeling strategy
+
+Since each paper has multiple categories, it's difficult to categorize papers to categories (in general a multi-label classification problem is much more difficult than a single-label classification problem). There are a few strategies we can take here:
+
+1. Reduce the question to a simpler question of interest. E.g., can we predict whether a given paper will have the "micro" category or not? This is probably the easiest solution but it is the least exciting.
+
+2. Using the **label power set** (LP) transformation: treat the outcome as a factor with sparse levels, where the possible results are the power set of the set of labels (so e.g. "Micro, macro, finance" would be a separate level, as would "macro" only, and "macro and finance" as well as all combinations).
+
+3. The **binary relevance** method: train a model to predict each category independently, and then combine the results of these models using some kind of voting/discrimination scheme. (The simplest voting scheme is to train one model for each category, and say yes for a category in the multi-label prediction if the related model says yes.) There are more complex versions of this as well, such as the classifier chain method.
+
+4. An **ensemble** method: train multiple standard multiclass learners which all predict a single class, and then use a voting scheme to select multiple categories.
+
+5. Use a more complicated algorithm specifically for multi-label classification. I don't really want to do this because I don't understand any of them that well. Maybe it is the best option but I can't use `tidymodels` for this.
+
+The LP method is probably the "easiest" in terms of just using models and code that already exist. But this can potentially be quite annoying if any of the levels are sparse, so let's take a quick look at that.
+
+```{r, fig.cap = "Counts of outcome categories after using the level powerset transformation on the set of potential labels. There is a large amount of class imbalance, which suggests that the LP method with a standard multiclass learner may be an inefficient approach to this problem.", fig.alt = "A horizontal bar chart showing the levels of the power set of paper categories on the y-axis, and the count of papers which have those categories on the x-axis. Each bar has a text label showing the number of papers."}
+dat2 %>%
+  count(program_cats) %>%
+  mutate(program_cats = forcats::fct_reorder(program_cats, n)) %>%
+  ggplot(aes(x = program_cats, y = n)) +
+  geom_col(col = "black", fill = "gray") +
+  geom_label(aes(label = n), nudge_y = 700) +
+  labs(
+    x = "set of paper categories",
+    y = "frequency"
+  ) +
+  coord_flip()
+```
+
+The classes are severely imbalanced when the LP transformation is implied--the distribution of counts implies that micro only will be the easiest label to predict, but we can even see that the simpler problem of classifying papers into having vs. not having the micro category would also pose a class imbalance problem. Next let's examine whether the binary relevance method would have a similar class imbalance issue. We can construct dummy variables for each of the three categories and examine the frequency of each category overall.
+
+```{r, fig.cap = "Distribution of classes for each category. The closer a bar is to the middle, the closer that class is to being balanced being positive and negative occurrences in the observed data.", fig.alt = "A horizontal bar chart showing the program category on the y-axis and the total number of papers which have that category associated on the x-axis. There is a vertical line showing the total number of papers (28952) as well, and each bar is labeled with the count and percentage of papers that fall into that category."}
+dat3 %>%
+  pivot_longer(
+    cols = starts_with("program_cats"),
+    names_pattern = "program_cats_(.*)"
+  ) %>%
+  group_by(name) %>%
+  summarize(val = sum(value)) %>%
+  ggplot(aes(y = forcats::fct_reorder(name, val), x = val)) +
+  geom_vline(xintercept = nrow(dat2)/2, size = 2, lty = 2) + 
+  geom_col(col = "black", fill = "gray") +
+  geom_label(aes(label = paste0(val, "\n ", round(val/nrow(dat2) * 100), "%")),
+             nudge_x = 1400, size = 5) +
+  geom_vline(xintercept = nrow(dat2), size = 2, lty = 2) +
+  annotate("label", x = nrow(dat2) - 1000, y = "Macro",
+           label = paste("total:", nrow(dat2)), size = 5) +
+  labs(
+    x = "frequency",
+    y = "program category"
+  )
+```
+
+We see that the micro and macro classes are both fairly balanced, but the finance class occurs less frequently and could potentially present issues in classification. I think a detailed treatment of upsampling and downsampling is beyond what I am inclined to do for the purpose of this model--the good news is that when you're building a predictive model you don't have to use uniform preprocessing across all your ensemble candidate models because there are no rules except optimize your predictive metrics `r emo::ji("grin")` but I think I'll just not worry about it since the only consequence of poor prediction metrics in this case is the damage to my dignity.
+
+So, I have decided on the **binary relevance** technique for multi-label classification. I will train an independent model to predict presence or absence each of the three categories, and then these predictions can be combined. The downside of this method is that (especially when we are not using chained classifiers) we cannot use correlations between labels to our advantage. However, I think it will be OK to do here just as a fun exercise.
+
+First things first, I always like to specify which prediction metric I'll focus on optimizing up-front. I think ideally we would want to tune all three of the independent models such that they optimize, e.g., the Hamming loss of the multi-label problem. But I am feeling a bit too lazy to code that, so I'll train each model on the same resamples and optimize for my personal favorite measure of binary classification accuracy, the MCC. Optimizing the three independent models does not necessarily equate to optimizing the multi-label model, but it will be good enough for me.
+
+The final ingredient that we need to decide on is the modeling strategy for each of the three independent models. We could go crazy and fit an ensemble for each of the three models, but I think that's overkill. My favorite model is the elastic net, which fortunately tends to work well with text-based predictors, so I'll build an elastic net model for each category.
+
+# Model fitting
+
+The first step is to **plan our data budget** (tidymodels dev Julia Silge uses this phrase and I really like it). We will split our data into training and testing sets, and then from the training set we will construct resamples using Monte Carlo cross validation, which I think is a great compromise between the advantages of LOO cross validation and how computationally LOO cv is to actually implement on a large dataset. For this exercise I'll only use 100 resamples so this doesn't take years for the model to run. When I learned this the first time, I learned that 70% training is a good balance so that's what I always use, although I'm sure whatever is probably fine.
+
+```{r data splitting and resamples}
+set.seed(370)
+dat_split <- dat3 %>% rsample::initial_split(prop = 0.7)
+dat_train <- rsample::training(dat_split)
+dat_test <- rsample::testing(dat_split)
+dat_resamples <- dat_train %>% rsample::mc_cv(times = 20)
+```
+
+Now we'll need to do a little bit of preprocessing. We can do this using the `recipes` package. (Note that the text is not yet processed in this dataframe because I did my work in a weird order.) We actually need to set up three recipes in this case, one for each outcome variable. Normally I would like to tune the number of tokens to include in the model, but in this case I'll just choose the top 100 to reduce tuning time. If that is too many, they should get eliminated by the model anyways.
+
+```{r}
+micro_recipe <- dat3 %>%
+  # Recipe with the formula specification for the model
+  recipe(program_cats_Micro ~ paper_date + title) %>%
+  # Make sure outcome is a factor that glmnet won't coerce to numeric
+  step_bin2factor(all_outcomes()) %>%
+  # Turn the title into individual words
+  step_tokenize(title) %>%
+  # Remove stopwords
+  step_stopwords(title) %>%
+  # We don't need every word, but we aren't sure how many we need.
+  step_tokenfilter(title, max_tokens = 100) %>%
+  # Turn tokenlist into tf/idf
+  step_tfidf(title) %>%
+  # extract year from date
+  step_date(paper_date, features = "year", keep_original_cols = FALSE)
+
+macro_recipe <- dat3 %>%
+  recipe(program_cats_Macro ~ paper_date + title) %>%
+  step_bin2factor(all_outcomes()) %>%
+  step_tokenize(title) %>%
+  step_stopwords(title) %>%
+  step_tokenfilter(title, max_tokens = 100) %>%
+  step_tfidf(title) %>%
+  step_date(paper_date, features = "year", keep_original_cols = FALSE)
+
+finance_recipe <- dat3 %>%
+  recipe(program_cats_Finance ~ paper_date + title) %>%
+  step_bin2factor(all_outcomes()) %>%
+  step_tokenize(title) %>%
+  step_stopwords(title) %>%
+  step_tokenfilter(title, max_tokens = 100) %>%
+  step_tfidf(title) %>%
+  step_date(paper_date, features = "year", keep_original_cols = FALSE)
+```
+
+So now our preprocessors are set up. Next we can set up our elastic net model, using the `glmnet` engine. We will tune both the penalty and the mixture parameters of the model.
+
+```{r model spec}
+# We want to use logistic regression
+model_spec <- parsnip::logistic_reg(penalty = tune(), mixture = tune()) %>%
+  # use the glmnet package to fit the model
+  set_engine("glmnet") %>%
+  # we are doing a classification problem
+  set_mode("classification")
+```
+
+Now we can define a workflow set, which will bundle this model together with each of our preprocessors. 
+
+```{r workflow set}
+wf_set <- workflow_set(
+  preproc = list(micro = micro_recipe,
+                 macro = macro_recipe,
+                 finance = finance_recipe),
+  model = list(mod = model_spec)
+)
+```
+
+Now we can tune each model in the workflow set. My favorite tuning/optimization algorithm is simulated annealing, but I think that's a bit overkill here. However, instead of doing something like a grid search, I'll speed up our results a bit by using a racing method from the `finetune` package. Normally we would want to use a lot more resamples and a lot more parameter options here, but I do not want this page to take 10 hours to build.
+
+```{r, cache = TRUE}
+# Register a parallel backend for improved speed. This interacts
+# with the improvement gained by using a racing method to improve
+# computation time even more, if there is no significant overhead.
+doParallel::registerDoParallel()
+
+tuned <- wf_set %>%
+  workflow_map(
+    fn = "tune_race_anova",
+    resamples = dat_resamples,
+    grid = 10,
+    metrics = metric_set(mcc),
+    verbose = TRUE 
+  )
+
+# It's always polite to close your cluster when you finish
+doParallel::stopImplicitCluster()
+```
+
+Now that the models are tuned, we need to extract them. Unfortunately there isn't really a slick way to do this `r emo::ji("face_with_rolling_eyes")`, hopefully the tidymodels team will expand `workflow_map` capabilities in the future to make this easier. I also think I am using it differently from how the creators intended here, but that has never stopped me before.
+
+Since we didn't do a regular grid search (and the search we used was not very dense anyways), we can't make a nice heatmap, of MCC for each group by the two hyperparameters, so I'll settle for a table.
+
+```{r}
+tuned %>%
+  dplyr::mutate(metrics = map(result, collect_metrics)) %>%
+  dplyr::select(wflow_id, metrics) %>%
+  tidyr::unnest(cols = metrics) %>%
+  dplyr::group_by(wflow_id) %>%
+  dplyr::slice_max(mean, n = 1) %>%
+  dplyr::ungroup() %>%
+  dplyr::transmute(
+    category = gsub("_mod", "", wflow_id),
+    `log10(penalty)` = scales::number(log10(penalty), accuracy = 0.0001),
+    mixture = scales::number(mixture, accuracy = 0.0001),
+    `mean MCC` = scales::number(mean, accuracy = 0.0001),
+    `std. err.` = scales::number(std_err, accuracy = 0.0001)
+  ) %>%
+  knitr::kable()
+```
+
+Interestingly, it looks like all of the models are quite different--for the micro category, a model closer to LASSO is operator, while for macro and finance, a model closer to ridge regression is better. Now let's apply the best predictions to our model specifications, and then we can fit the model.
+
+...or, that would be my next goal anyways. Now I've hit my time limit on this assignment, so I decided to stop here `r emo::ji("grin")`. Maybe if I ever have some spare time (yeah right), I'll come back and evaluate the models, but for now this is how they will remain.
+
+<!--
+```{r, include = FALSE, evaluate = FALSE}
+# res <- map(
+#   tuned$wflow_id,
+#   ~extract_workflow(tuned, .x) |>
+#     finalize_workflow(
+#       extract_workflow_set_result(tuned, .x) |>
+#       select_best()
+#     ) |>
+#     fit(dat_train)
+# )
+# 
+# this <- map(res, tidy)
+# this2 <- map(res, ~collect_predictions(.x) %>% roc_curve())
+```
+
+
+# Model results
+-->
+
 
