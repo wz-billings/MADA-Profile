@@ -259,6 +259,10 @@ $(document).ready(function () {
     <li>
       <a href="./visualization.html">Visualization</a>
     </li>
+    <li class="dropdown-header">ML Models</li>
+    <li>
+      <a href="./flu_models.html"></a>
+    </li>
     <li>
       <a href="./tidytuesday.html">Tidy Tuesday</a>
     </li>
@@ -342,13 +346,13 @@ ggplot2::theme_set(cowplot::theme_cowplot())</code></pre>
 dplyr::glimpse(dat)</code></pre>
 <pre><code>## Rows: 128,565
 ## Columns: 7
-## $ paper            &lt;chr&gt; &quot;w0074&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0107&quot;, &quot;w0116&quot;, &quot;w0117&quot;, &quot;w01~
-## $ catalogue_group  &lt;fct&gt; General, General, General, General, General, General, General, General, Gene~
-## $ paper_date       &lt;date&gt; 1975-03-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-10-01, 197~
-## $ title            &lt;chr&gt; &quot;Variation Across Household in the Rate of Inflation&quot;, &quot;Exports and Foreign ~
-## $ name             &lt;chr&gt; &quot;Robert T Michael&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Robert E Lipsey~
-## $ program_desc     &lt;fct&gt; &quot;Economic Fluctuations and Growth&quot;, &quot;International Finance and Macroeconomic~
-## $ program_category &lt;fct&gt; Macro, Macro, Macro, Macro, Macro, Micro, Micro, Micro, Micro, Macro, Macro,~</code></pre>
+## $ paper            &lt;chr&gt; &quot;w0074&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0107&quot;, &quot;w0116&quot;, &quot;w0117&quot;, &quot;w012~
+## $ catalogue_group  &lt;fct&gt; General, General, General, General, General, General, General, General, Gener~
+## $ paper_date       &lt;date&gt; 1975-03-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-10-01, 1975~
+## $ title            &lt;chr&gt; &quot;Variation Across Household in the Rate of Inflation&quot;, &quot;Exports and Foreign I~
+## $ name             &lt;chr&gt; &quot;Robert T Michael&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Robert E Lipsey&quot;~
+## $ program_desc     &lt;fct&gt; &quot;Economic Fluctuations and Growth&quot;, &quot;International Finance and Macroeconomics~
+## $ program_category &lt;fct&gt; Macro, Macro, Macro, Macro, Macro, Micro, Micro, Micro, Micro, Macro, Macro, ~</code></pre>
 <p>We can see that the data has 128565 records while there are only 28952 paper IDs in the dataset, so each paper is currently represented by multiple records. I suspect that this occurs when papers have either multiple authors or associated programs.</p>
 <pre class="r"><code>dat %&gt;%
   dplyr::distinct(paper, name) %&gt;%
@@ -412,13 +416,13 @@ dat2 &lt;- dat_wide %&gt;%
 dplyr::glimpse(dat2)</code></pre>
 <pre><code>## Rows: 28,952
 ## Columns: 7
-## $ paper        &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;h0009&quot;,~
-## $ authors      &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ransom&quot;, &quot;~
-## $ num_authors  &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1,~
-## $ program_cats &lt;chr&gt; &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;,~
-## $ programs     &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Economy&quot;, &quot;D~
-## $ title        &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elasticities~
-## $ paper_date   &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, 1989-10~</code></pre>
+## $ paper        &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;h0009&quot;, ~
+## $ authors      &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ransom&quot;, &quot;C~
+## $ num_authors  &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, ~
+## $ program_cats &lt;chr&gt; &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, ~
+## $ programs     &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Economy&quot;, &quot;De~
+## $ title        &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elasticities,~
+## $ paper_date   &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, 1989-10-~</code></pre>
 <p>After looking at the data, I think that there are a few interesting questions we could ask using topic modeling, which is what I really wanted to do when I saw this dataset. My heart’s desire is to try and predict which categories a paper will have based on information like the title, date, number of authors, etc. (Not sure what other predictors might be derived from this dataset.) Note that each paper can have more than one category. We’ll address this issue in a bit.</p>
 </div>
 <div id="data-exploration" class="section level1" number="3">
@@ -438,15 +442,15 @@ dplyr::glimpse(dat2)</code></pre>
 dplyr::glimpse(dat3)</code></pre>
 <pre><code>## Rows: 28,952
 ## Columns: 9
-## $ paper                &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, ~
-## $ authors              &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ra~
-## $ num_authors          &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, ~
-## $ programs             &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Econ~
-## $ title                &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elas~
-## $ paper_date           &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01,~
-## $ program_cats_Finance &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
-## $ program_cats_Macro   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
-## $ program_cats_Micro   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~</code></pre>
+## $ paper                &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;~
+## $ authors              &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ran~
+## $ num_authors          &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2~
+## $ programs             &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Econo~
+## $ title                &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elast~
+## $ paper_date           &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, ~
+## $ program_cats_Finance &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ program_cats_Macro   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ program_cats_Micro   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~</code></pre>
 <p>Having a version of this data in long form will be helpful as well.</p>
 <pre class="r"><code>dat3_long &lt;- dat3 %&gt;%
   pivot_longer(
