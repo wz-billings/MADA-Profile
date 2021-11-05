@@ -10,6 +10,10 @@ title, h1, h2, h3, h4, h5, h6 {
   font-face: bold;
 }
 
+.navbar {
+  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+}
+
 /* Make the font big enough to actually read */
 body, td {
   font-size: 20px;
