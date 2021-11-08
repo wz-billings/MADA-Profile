@@ -259,9 +259,8 @@ $(document).ready(function () {
     <li>
       <a href="./visualization.html">Visualization</a>
     </li>
-    <li class="dropdown-header">ML Models</li>
     <li>
-      <a href="./flu_models.html"></a>
+      <a href="./flu_models.html">ML Models</a>
     </li>
     <li>
       <a href="./tidytuesday.html">Tidy Tuesday</a>
@@ -747,11 +746,11 @@ tuned &lt;- wf_set %&gt;%
     verbose = TRUE 
   )</code></pre>
 <pre><code>## i 1 of 3 tuning:     micro_mod</code></pre>
-<pre><code>## v 1 of 3 tuning:     micro_mod (3m 23.4s)</code></pre>
+<pre><code>## v 1 of 3 tuning:     micro_mod (3m 20s)</code></pre>
 <pre><code>## i 2 of 3 tuning:     macro_mod</code></pre>
-<pre><code>## v 2 of 3 tuning:     macro_mod (2m 4.4s)</code></pre>
+<pre><code>## v 2 of 3 tuning:     macro_mod (2m 10.7s)</code></pre>
 <pre><code>## i 3 of 3 tuning:     finance_mod</code></pre>
-<pre><code>## v 3 of 3 tuning:     finance_mod (2m 42.2s)</code></pre>
+<pre><code>## v 3 of 3 tuning:     finance_mod (2m 53.4s)</code></pre>
 <pre class="r"><code># It&#39;s always polite to close your cluster when you finish
 doParallel::stopImplicitCluster()</code></pre>
 <p>Now that the models are tuned, we need to extract them. Unfortunately there isn’t really a slick way to do this 🙄, hopefully the tidymodels team will expand <code>workflow_map</code> capabilities in the future to make this easier. I also think I am using it differently from how the creators intended here, but that has never stopped me before.</p>

@@ -19,7 +19,7 @@ navbar:
         - text: "Visualization"
           href: ./visualization.html
         - text: "ML Models"
-        - href: ./flu_models.html
+          href: ./flu_models.html
         - text: "Tidy Tuesday"
           href: ./tidytuesday.html
         - text: "Tidy Tuesday 2"

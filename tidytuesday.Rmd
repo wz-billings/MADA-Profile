@@ -450,7 +450,7 @@ wf_set <- workflow_set(
 
 Now we can tune each model in the workflow set. My favorite tuning/optimization algorithm is simulated annealing, but I think that's a bit overkill here. However, instead of doing something like a grid search, I'll speed up our results a bit by using a racing method from the `finetune` package. Normally we would want to use a lot more resamples and a lot more parameter options here, but I do not want this page to take 10 hours to build.
 
-```{r, cache = TRUE}
+```{r}
 # Register a parallel backend for improved speed. This interacts
 # with the improvement gained by using a racing method to improve
 # computation time even more, if there is no significant overhead.
