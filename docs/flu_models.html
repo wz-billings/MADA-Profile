@@ -428,32 +428,32 @@ $(document).ready(function () {
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat)</span></code></pre></div>
 <pre><code>## Rows: 730
 ## Columns: 26
-## $ SwollenLymphNodes &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, No, Yes, Yes, No, Yes, Yes, No, No~
-## $ ChestCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, N~
-## $ ChillsSweats      &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, Yes, Yes,~
-## $ NasalCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, ~
-## $ Sneeze            &lt;fct&gt; No, No, Yes, Yes, No, Yes, No, Yes, No, No, No, No, No, Yes, No, Yes, No, Ye~
-## $ Fatigue           &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Y~
-## $ SubjectiveFever   &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, No, Yes, No, Yes,~
-## $ Headache          &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Ye~
-## $ RunnyNose         &lt;fct&gt; No, No, Yes, Yes, No, No, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, No~
-## $ AbPain            &lt;fct&gt; No, No, Yes, No, No, No, No, No, No, No, Yes, Yes, No, No, No, No, No, No, N~
-## $ ChestPain         &lt;fct&gt; No, No, Yes, No, No, Yes, Yes, No, No, No, No, Yes, No, Yes, No, No, Yes, Ye~
-## $ Diarrhea          &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, No, No, No, No, No, No, No, No,~
-## $ EyePn             &lt;fct&gt; No, No, No, No, Yes, No, No, No, No, No, Yes, No, Yes, No, No, No, No, No, N~
-## $ Insomnia          &lt;fct&gt; No, No, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Y~
-## $ ItchyEye          &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, Yes, Yes, No, No, No, No, No~
-## $ Nausea            &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Yes, No, No, Yes, No~
-## $ EarPn             &lt;fct&gt; No, Yes, No, Yes, No, No, No, No, No, No, No, Yes, Yes, No, Yes, No, No, Yes~
-## $ Pharyngitis       &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, No, ~
-## $ Breathless        &lt;fct&gt; No, No, Yes, No, No, Yes, No, No, No, Yes, No, Yes, Yes, Yes, No, No, Yes, Y~
-## $ ToothPn           &lt;fct&gt; No, No, Yes, No, No, No, No, No, Yes, No, No, Yes, No, No, No, No, No, Yes, ~
-## $ Vomit             &lt;fct&gt; No, No, No, No, No, No, Yes, No, No, No, Yes, Yes, No, No, No, No, No, No, N~
-## $ Wheeze            &lt;fct&gt; No, No, No, Yes, No, Yes, No, No, No, No, No, Yes, No, Yes, No, No, No, Yes,~
-## $ Weakness          &lt;ord&gt; Mild, Severe, Severe, Severe, Moderate, Moderate, Mild, Severe, Moderate, Mo~
-## $ Cough             &lt;ord&gt; Severe, Severe, Mild, Moderate, None, Moderate, Severe, Moderate, Moderate, ~
-## $ Myalgia           &lt;ord&gt; Mild, Severe, Severe, Severe, Mild, Moderate, Mild, Severe, Moderate, Mild, ~
-## $ BodyTemp          &lt;dbl&gt; 98.3, 100.4, 100.8, 98.8, 100.5, 98.4, 102.5, 98.4, 98.5, 97.8, 98.2, 97.9, ~</code></pre>
+## $ SwollenLymphNodes &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, No, Yes, Y~
+## $ ChestCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Y~
+## $ ChillsSweats      &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, ~
+## $ NasalCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Y~
+## $ Sneeze            &lt;fct&gt; No, No, Yes, Yes, No, Yes, No, Yes, No, No, No, No, ~
+## $ Fatigue           &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Ye~
+## $ SubjectiveFever   &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes~
+## $ Headache          &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes~
+## $ RunnyNose         &lt;fct&gt; No, No, Yes, Yes, No, No, Yes, Yes, Yes, Yes, No, No~
+## $ AbPain            &lt;fct&gt; No, No, Yes, No, No, No, No, No, No, No, Yes, Yes, N~
+## $ ChestPain         &lt;fct&gt; No, No, Yes, No, No, Yes, Yes, No, No, No, No, Yes, ~
+## $ Diarrhea          &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, No, No,~
+## $ EyePn             &lt;fct&gt; No, No, No, No, Yes, No, No, No, No, No, Yes, No, Ye~
+## $ Insomnia          &lt;fct&gt; No, No, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Y~
+## $ ItchyEye          &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, Yes,~
+## $ Nausea            &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Y~
+## $ EarPn             &lt;fct&gt; No, Yes, No, Yes, No, No, No, No, No, No, No, Yes, Y~
+## $ Pharyngitis       &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, ~
+## $ Breathless        &lt;fct&gt; No, No, Yes, No, No, Yes, No, No, No, Yes, No, Yes, ~
+## $ ToothPn           &lt;fct&gt; No, No, Yes, No, No, No, No, No, Yes, No, No, Yes, N~
+## $ Vomit             &lt;fct&gt; No, No, No, No, No, No, Yes, No, No, No, Yes, Yes, N~
+## $ Wheeze            &lt;fct&gt; No, No, No, Yes, No, Yes, No, No, No, No, No, Yes, N~
+## $ Weakness          &lt;ord&gt; Mild, Severe, Severe, Severe, Moderate, Moderate, Mi~
+## $ Cough             &lt;ord&gt; Severe, Severe, Mild, Moderate, None, Moderate, Seve~
+## $ Myalgia           &lt;ord&gt; Mild, Severe, Severe, Severe, Mild, Moderate, Mild, ~
+## $ BodyTemp          &lt;dbl&gt; 98.3, 100.4, 100.8, 98.8, 100.5, 98.4, 102.5, 98.4, ~</code></pre>
 </div>
 <div id="modeling-setup" class="section level1">
 <h1>Modeling setup</h1>
@@ -526,27 +526,17 @@ $(document).ready(function () {
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">round</span>(.x, <span class="at">digits =</span> <span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;RMSE and boostrap SE (B = 1000) for the null model.&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-RMSE and boostrap SE (B = 1000) for the null model.
-</caption>
+<caption>RMSE and boostrap SE (B = 1000) for the null model.</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-estimate
-</th>
-<th style="text-align:right;">
-std_err
-</th>
+<tr class="header">
+<th align="right">estimate</th>
+<th align="right">std_err</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1.21
-</td>
-<td style="text-align:right;">
-0.06
-</td>
+<tr class="odd">
+<td align="right">1.21</td>
+<td align="right">0.06</td>
 </tr>
 </tbody>
 </table>
@@ -649,198 +639,86 @@ std_err
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Best performing hyperparameter sets&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-Best performing hyperparameter sets
-</caption>
+<caption>Best performing hyperparameter sets</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-rmse
-</th>
-<th style="text-align:right;">
-std_err
-</th>
-<th style="text-align:left;">
-cost_complexity
-</th>
-<th style="text-align:right;">
-tree_depth
-</th>
-<th style="text-align:right;">
-min_n
-</th>
+<tr class="header">
+<th align="right">rmse</th>
+<th align="right">std_err</th>
+<th align="left">cost_complexity</th>
+<th align="right">tree_depth</th>
+<th align="right">min_n</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-1.56e-02
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-28
-</td>
+<tr class="odd">
+<td align="right">1.18</td>
+<td align="right">0.02</td>
+<td align="left">1.56e-02</td>
+<td align="right">6</td>
+<td align="right">28</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.19
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-5.39e-03
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-17
-</td>
+<tr class="even">
+<td align="right">1.19</td>
+<td align="right">0.02</td>
+<td align="left">5.39e-03</td>
+<td align="right">1</td>
+<td align="right">17</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.22
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-2.79e-04
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-39
-</td>
+<tr class="odd">
+<td align="right">1.22</td>
+<td align="right">0.02</td>
+<td align="left">2.79e-04</td>
+<td align="right">4</td>
+<td align="right">39</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.23
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-8.68e-05
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-17
-</td>
+<tr class="even">
+<td align="right">1.23</td>
+<td align="right">0.02</td>
+<td align="left">8.68e-05</td>
+<td align="right">5</td>
+<td align="right">17</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.25
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-1.29e-10
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-35
-</td>
+<tr class="odd">
+<td align="right">1.25</td>
+<td align="right">0.02</td>
+<td align="left">1.29e-10</td>
+<td align="right">13</td>
+<td align="right">35</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.26
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-2.04e-05
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-32
-</td>
+<tr class="even">
+<td align="right">1.26</td>
+<td align="right">0.02</td>
+<td align="left">2.04e-05</td>
+<td align="right">11</td>
+<td align="right">32</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.28
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-7.64e-08
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-23
-</td>
+<tr class="odd">
+<td align="right">1.28</td>
+<td align="right">0.02</td>
+<td align="left">7.64e-08</td>
+<td align="right">14</td>
+<td align="right">23</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.39
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-4.07e-08
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-11
-</td>
+<tr class="even">
+<td align="right">1.39</td>
+<td align="right">0.02</td>
+<td align="left">4.07e-08</td>
+<td align="right">11</td>
+<td align="right">11</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.44
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:left;">
-1.34e-09
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-8
-</td>
+<tr class="odd">
+<td align="right">1.44</td>
+<td align="right">0.02</td>
+<td align="left">1.34e-09</td>
+<td align="right">9</td>
+<td align="right">8</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.51
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:left;">
-1.57e-06
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-2
-</td>
+<tr class="even">
+<td align="right">1.51</td>
+<td align="right">0.03</td>
+<td align="left">1.57e-06</td>
+<td align="right">8</td>
+<td align="right">2</td>
 </tr>
 </tbody>
 </table>
@@ -858,44 +736,24 @@ min_n
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>tree_RMSE <span class="sc">|&gt;</span></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Comparison of RMSE values for the regression tree vs. the null model.&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-Comparison of RMSE values for the regression tree vs. the null model.
-</caption>
+<caption>Comparison of RMSE values for the regression tree vs. the null model.</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-model
-</th>
-<th style="text-align:right;">
-rmse
-</th>
-<th style="text-align:right;">
-SE
-</th>
+<tr class="header">
+<th align="left">model</th>
+<th align="right">rmse</th>
+<th align="right">SE</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-Tree
-</td>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0179
-</td>
+<tr class="odd">
+<td align="left">Tree</td>
+<td align="right">1.18</td>
+<td align="right">0.0179</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Null
-</td>
-<td style="text-align:right;">
-1.21
-</td>
-<td style="text-align:right;">
-0.0580
-</td>
+<tr class="even">
+<td align="left">Null</td>
+<td align="right">1.21</td>
+<td align="right">0.0580</td>
 </tr>
 </tbody>
 </table>
@@ -993,132 +851,64 @@ Null
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Best performing hyperparameter sets&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-Best performing hyperparameter sets
-</caption>
+<caption>Best performing hyperparameter sets</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-rmse
-</th>
-<th style="text-align:right;">
-std_err
-</th>
-<th style="text-align:right;">
-log penalty
-</th>
+<tr class="header">
+<th align="right">rmse</th>
+<th align="right">std_err</th>
+<th align="right">log penalty</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0170
-</td>
-<td style="text-align:right;">
--2.56
-</td>
+<tr class="odd">
+<td align="right">1.16</td>
+<td align="right">0.0170</td>
+<td align="right">-2.56</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.17
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--5.12
-</td>
+<tr class="even">
+<td align="right">1.17</td>
+<td align="right">0.0167</td>
+<td align="right">-5.12</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--23.03
-</td>
+<tr class="odd">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-23.03</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--20.47
-</td>
+<tr class="even">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-20.47</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--17.91
-</td>
+<tr class="odd">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-17.91</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--15.35
-</td>
+<tr class="even">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-15.35</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--12.79
-</td>
+<tr class="odd">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-12.79</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--10.23
-</td>
+<tr class="even">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-10.23</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
--7.68
-</td>
+<tr class="odd">
+<td align="right">1.18</td>
+<td align="right">0.0167</td>
+<td align="right">-7.68</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.21
-</td>
-<td style="text-align:right;">
-0.0177
-</td>
-<td style="text-align:right;">
-0.00
-</td>
+<tr class="even">
+<td align="right">1.21</td>
+<td align="right">0.0177</td>
+<td align="right">0.00</td>
 </tr>
 </tbody>
 </table>
@@ -1134,55 +924,29 @@ log penalty
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>lasso_RMSE <span class="sc">|&gt;</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Comparison of RMSE values for the LASSO, regression tree, and null models.&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-Comparison of RMSE values for the LASSO, regression tree, and null models.
-</caption>
+<caption>Comparison of RMSE values for the LASSO, regression tree, and null models.</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-rmse
-</th>
-<th style="text-align:right;">
-SE
-</th>
-<th style="text-align:left;">
-model
-</th>
+<tr class="header">
+<th align="right">rmse</th>
+<th align="right">SE</th>
+<th align="left">model</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0170
-</td>
-<td style="text-align:left;">
-LASSO
-</td>
+<tr class="odd">
+<td align="right">1.16</td>
+<td align="right">0.0170</td>
+<td align="left">LASSO</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0179
-</td>
-<td style="text-align:left;">
-Tree
-</td>
+<tr class="even">
+<td align="right">1.18</td>
+<td align="right">0.0179</td>
+<td align="left">Tree</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.21
-</td>
-<td style="text-align:right;">
-0.0580
-</td>
-<td style="text-align:left;">
-Null
-</td>
+<tr class="odd">
+<td align="right">1.21</td>
+<td align="right">0.0580</td>
+<td align="left">Null</td>
 </tr>
 </tbody>
 </table>
@@ -1287,164 +1051,72 @@ Null
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Best performing hyperparameter sets&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-Best performing hyperparameter sets
-</caption>
+<caption>Best performing hyperparameter sets</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-rmse
-</th>
-<th style="text-align:right;">
-std_err
-</th>
-<th style="text-align:right;">
-mtry
-</th>
-<th style="text-align:right;">
-trees
-</th>
-<th style="text-align:right;">
-min_n
-</th>
+<tr class="header">
+<th align="right">rmse</th>
+<th align="right">std_err</th>
+<th align="right">mtry</th>
+<th align="right">trees</th>
+<th align="right">min_n</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-862
-</td>
-<td style="text-align:right;">
-40
-</td>
+<tr class="odd">
+<td align="right">1.16</td>
+<td align="right">0.0167</td>
+<td align="right">6</td>
+<td align="right">862</td>
+<td align="right">40</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0168
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-1038
-</td>
-<td style="text-align:right;">
-35
-</td>
+<tr class="even">
+<td align="right">1.16</td>
+<td align="right">0.0168</td>
+<td align="right">6</td>
+<td align="right">1038</td>
+<td align="right">35</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0166
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-1038
-</td>
-<td style="text-align:right;">
-39
-</td>
+<tr class="odd">
+<td align="right">1.16</td>
+<td align="right">0.0166</td>
+<td align="right">8</td>
+<td align="right">1038</td>
+<td align="right">39</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.17
-</td>
-<td style="text-align:right;">
-0.0166
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-862
-</td>
-<td style="text-align:right;">
-40
-</td>
+<tr class="even">
+<td align="right">1.17</td>
+<td align="right">0.0166</td>
+<td align="right">9</td>
+<td align="right">862</td>
+<td align="right">40</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.17
-</td>
-<td style="text-align:right;">
-0.0168
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-782
-</td>
-<td style="text-align:right;">
-36
-</td>
+<tr class="odd">
+<td align="right">1.17</td>
+<td align="right">0.0168</td>
+<td align="right">9</td>
+<td align="right">782</td>
+<td align="right">36</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.17
-</td>
-<td style="text-align:right;">
-0.0166
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-1038
-</td>
-<td style="text-align:right;">
-31
-</td>
+<tr class="even">
+<td align="right">1.17</td>
+<td align="right">0.0166</td>
+<td align="right">9</td>
+<td align="right">1038</td>
+<td align="right">31</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.17
-</td>
-<td style="text-align:right;">
-0.0164
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-982
-</td>
-<td style="text-align:right;">
-32
-</td>
+<tr class="odd">
+<td align="right">1.17</td>
+<td align="right">0.0164</td>
+<td align="right">12</td>
+<td align="right">982</td>
+<td align="right">32</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.17
-</td>
-<td style="text-align:right;">
-0.0165
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-982
-</td>
-<td style="text-align:right;">
-29
-</td>
+<tr class="even">
+<td align="right">1.17</td>
+<td align="right">0.0165</td>
+<td align="right">13</td>
+<td align="right">982</td>
+<td align="right">29</td>
 </tr>
 </tbody>
 </table>
@@ -1460,66 +1132,34 @@ min_n
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>rf_RMSE <span class="sc">|&gt;</span></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Comparison of RMSE values for the models.&quot;</span>)</span></code></pre></div>
 <table>
-<caption>
-Comparison of RMSE values for the models.
-</caption>
+<caption>Comparison of RMSE values for the models.</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-rmse
-</th>
-<th style="text-align:right;">
-SE
-</th>
-<th style="text-align:left;">
-model
-</th>
+<tr class="header">
+<th align="right">rmse</th>
+<th align="right">SE</th>
+<th align="left">model</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:left;">
-RF
-</td>
+<tr class="odd">
+<td align="right">1.16</td>
+<td align="right">0.0167</td>
+<td align="left">RF</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.16
-</td>
-<td style="text-align:right;">
-0.0170
-</td>
-<td style="text-align:left;">
-LASSO
-</td>
+<tr class="even">
+<td align="right">1.16</td>
+<td align="right">0.0170</td>
+<td align="left">LASSO</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-0.0179
-</td>
-<td style="text-align:left;">
-Tree
-</td>
+<tr class="odd">
+<td align="right">1.18</td>
+<td align="right">0.0179</td>
+<td align="left">Tree</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.21
-</td>
-<td style="text-align:right;">
-0.0580
-</td>
-<td style="text-align:left;">
-Null
-</td>
+<tr class="even">
+<td align="right">1.21</td>
+<td align="right">0.0580</td>
+<td align="left">Null</td>
 </tr>
 </tbody>
 </table>

@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +30,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -44,21 +42,106 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
 
 
 
 
-
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -292,332 +375,329 @@ $(document).ready(function () {
 </div>
 
 
-<div id="nber-papers-data" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> NBER papers data</h1>
+<div id="nber-papers-data" class="section level1">
+<h1>NBER papers data</h1>
 <p>This week’s Tidy Tuesday dataset is a dataset of non-peer-reviewed economic papers produced by the National Bureau of Economic Research (NBER). First things first, we need to load the data.</p>
 <p>At the time of writing, neither the CRAN nor GitHub versions of the <code>tidytuesdayR</code> package have been updated with the new data, so instead I will just get the data from the <code>nberwp</code> package. I’ve also chosen to load all necessary packages here.</p>
-<pre class="r"><code>library(nberwp) # contains data
-library(emo) # for emojis
-library(tidyverse) # for data cleaning, wrangling, and plotting
-library(lubridate) # for datetimes
-library(cowplot) # for theme_cowplot
-library(fastDummies) # for creating dummy variables from factors
-library(tidymodels) # for predictive modeling
-library(tidylo) # for log odds
-library(tidytext) # for feature engineering from unstructured text
-library(textrecipes) # for feature engineering from unstructured text
-library(stopwords) # needed for step_stopwords
-library(finetune) # for my favorite tuning methods
-library(lme4) # need for finetune
-library(glmnet) # for the model I want to fit
-library(colorblindr) # for better plot colors
-
-ggplot2::theme_set(cowplot::theme_cowplot())</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nberwp) <span class="co"># contains data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emo) <span class="co"># for emojis</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data cleaning, wrangling, and plotting</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for datetimes</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot) <span class="co"># for theme_cowplot</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastDummies) <span class="co"># for creating dummy variables from factors</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co"># for predictive modeling</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidylo) <span class="co"># for log odds</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext) <span class="co"># for feature engineering from unstructured text</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textrecipes) <span class="co"># for feature engineering from unstructured text</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stopwords) <span class="co"># needed for step_stopwords</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finetune) <span class="co"># for my favorite tuning methods</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># need for finetune</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet) <span class="co"># for the model I want to fit</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(colorblindr) <span class="co"># for better plot colors</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(cowplot<span class="sc">::</span><span class="fu">theme_cowplot</span>())</span></code></pre></div>
 </div>
-<div id="data-cleaning-wrangling-and-exploration" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Data cleaning, wrangling, and exploration</h1>
+<div id="data-cleaning-wrangling-and-exploration" class="section level1">
+<h1>Data cleaning, wrangling, and exploration</h1>
 <p>Now we can join all of the individual datasets together. The code for this was partially provided on the TidyTuesday GitHub page. In this section I will also do a little data cleaning to make sure variables are in the correct format for analysis. I’ve also filtered out any records that are missing the program category.</p>
-<pre class="r"><code>dat &lt;- dplyr::left_join(papers, paper_authors, by = &quot;paper&quot;) %&gt;% 
-  dplyr::left_join(authors, by = &quot;author&quot;) %&gt;% 
-  dplyr::left_join(paper_programs, by = &quot;paper&quot;) %&gt;% 
-  dplyr::left_join(programs, by = &quot;program&quot;) %&gt;%
-  tidyr::drop_na(program_category) %&gt;%
-  dplyr::mutate(
-    catalogue_group = stringr::str_sub(paper, 1, 1),
-    catalogue_group = factor(
-      dplyr::case_when(
-        catalogue_group == &quot;h&quot; ~ &quot;Historical&quot;,
-        catalogue_group == &quot;t&quot; ~ &quot;Technical&quot;,
-        catalogue_group == &quot;w&quot; ~ &quot;General&quot;
-      )
-    ),
-    program_category = dplyr::case_when(
-      program_category == &quot;Macro/International&quot; ~ &quot;Macro&quot;,
-      TRUE ~ program_category
-    ),
-    paper_date = lubridate::ymd(paste0(year, &quot;-&quot;, month, &quot;-01&quot;)),
-    dplyr::across(dplyr::contains(&quot;program&quot;), as.factor),
-    .after = paper
-  ) %&gt;%
-  # Let&#39;s get rid of the variables that contain redundant information.
-  dplyr::select(-year, -month, -user_nber, -user_repec, -program, -author)
-
-dplyr::glimpse(dat)</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(papers, paper_authors, <span class="at">by =</span> <span class="st">&quot;paper&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(authors, <span class="at">by =</span> <span class="st">&quot;author&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(paper_programs, <span class="at">by =</span> <span class="st">&quot;paper&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(programs, <span class="at">by =</span> <span class="st">&quot;program&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>(program_category) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">catalogue_group =</span> stringr<span class="sc">::</span><span class="fu">str_sub</span>(paper, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">catalogue_group =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        catalogue_group <span class="sc">==</span> <span class="st">&quot;h&quot;</span> <span class="sc">~</span> <span class="st">&quot;Historical&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        catalogue_group <span class="sc">==</span> <span class="st">&quot;t&quot;</span> <span class="sc">~</span> <span class="st">&quot;Technical&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        catalogue_group <span class="sc">==</span> <span class="st">&quot;w&quot;</span> <span class="sc">~</span> <span class="st">&quot;General&quot;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">program_category =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      program_category <span class="sc">==</span> <span class="st">&quot;Macro/International&quot;</span> <span class="sc">~</span> <span class="st">&quot;Macro&quot;</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> program_category</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">paper_date =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="fu">paste0</span>(year, <span class="st">&quot;-&quot;</span>, month, <span class="st">&quot;-01&quot;</span>)),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">across</span>(dplyr<span class="sc">::</span><span class="fu">contains</span>(<span class="st">&quot;program&quot;</span>), as.factor),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">.after =</span> paper</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Let&#39;s get rid of the variables that contain redundant information.</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>year, <span class="sc">-</span>month, <span class="sc">-</span>user_nber, <span class="sc">-</span>user_repec, <span class="sc">-</span>program, <span class="sc">-</span>author)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat)</span></code></pre></div>
 <pre><code>## Rows: 128,565
 ## Columns: 7
-## $ paper            &lt;chr&gt; &quot;w0074&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0107&quot;, &quot;w0116&quot;, &quot;w0117&quot;, &quot;w012~
-## $ catalogue_group  &lt;fct&gt; General, General, General, General, General, General, General, General, Gener~
-## $ paper_date       &lt;date&gt; 1975-03-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-10-01, 1975~
-## $ title            &lt;chr&gt; &quot;Variation Across Household in the Rate of Inflation&quot;, &quot;Exports and Foreign I~
-## $ name             &lt;chr&gt; &quot;Robert T Michael&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Robert E Lipsey&quot;~
-## $ program_desc     &lt;fct&gt; &quot;Economic Fluctuations and Growth&quot;, &quot;International Finance and Macroeconomics~
-## $ program_category &lt;fct&gt; Macro, Macro, Macro, Macro, Macro, Micro, Micro, Micro, Micro, Macro, Macro, ~</code></pre>
+## $ paper            &lt;chr&gt; &quot;w0074&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0107&quot;,~
+## $ catalogue_group  &lt;fct&gt; General, General, General, General, General, General,~
+## $ paper_date       &lt;date&gt; 1975-03-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975~
+## $ title            &lt;chr&gt; &quot;Variation Across Household in the Rate of Inflation&quot;~
+## $ name             &lt;chr&gt; &quot;Robert T Michael&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Merle Yahr W~
+## $ program_desc     &lt;fct&gt; &quot;Economic Fluctuations and Growth&quot;, &quot;International Fi~
+## $ program_category &lt;fct&gt; Macro, Macro, Macro, Macro, Macro, Micro, Micro, Micr~</code></pre>
 <p>We can see that the data has 128565 records while there are only 28952 paper IDs in the dataset, so each paper is currently represented by multiple records. I suspect that this occurs when papers have either multiple authors or associated programs.</p>
-<pre class="r"><code>dat %&gt;%
-  dplyr::distinct(paper, name) %&gt;%
-  dplyr::count(paper) %&gt;%
-  ggplot(aes(x = n)) +
-  geom_bar(col = &quot;black&quot;, fill = &quot;gray&quot;) +
-  geom_label(aes(y = after_stat(count), label = after_stat(count)),
-             stat = &quot;count&quot;, nudge_y = 500) +
-  scale_x_continuous(breaks = seq(1:17), expand = c(0, 0.1)) +
-  labs(
-    x = &quot;number of authors on a paper&quot;,
-    y = &quot;frequency&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(paper, name) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(paper) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count), <span class="at">label =</span> <span class="fu">after_stat</span>(count)),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="at">nudge_y =</span> <span class="dv">500</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">17</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;number of authors on a paper&quot;</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;frequency&quot;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/number%20of%20authors%20per%20paper-1.png" alt="A column chart with number of authors of a paper on the horizontal axis, and the number of papers with that many authors in the dataset on the y-axis." width="672" />
 <p class="caption">
-(#fig:number of authors per paper)Most papers have 4 or less authors, however some have up to 17.
+Most papers have 4 or less authors, however some have up to 17.
 </p>
 </div>
-<pre class="r"><code>dat %&gt;%
-  dplyr::distinct(paper, program_desc) %&gt;%
-  dplyr::count(paper) %&gt;%
-  ggplot(aes(x = n)) +
-  geom_bar(col = &quot;black&quot;, fill = &quot;gray&quot;) +
-  geom_label(aes(y = after_stat(count), label = after_stat(count)),
-             stat = &quot;count&quot;, nudge_y = 500) +
-  scale_x_continuous(breaks = seq(1:14), expand = c(0, 0.1)) +
-  labs(
-    x = &quot;number of programs associated with a paper&quot;,
-    y = &quot;frequency&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(paper, program_desc) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(paper) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count), <span class="at">label =</span> <span class="fu">after_stat</span>(count)),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="at">nudge_y =</span> <span class="dv">500</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;number of programs associated with a paper&quot;</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;frequency&quot;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/number%20of%20programs%20per%20paper-1.png" alt="A column chart with number of programs associated with a on the horizontal axis, and the number of papers with that many associated programs in the dataset on the y-axis." width="672" />
 <p class="caption">
-(#fig:number of programs per paper)Most papers have 4 or less associated programs, however some have up to 14.
+Most papers have 4 or less associated programs, however some have up to 14.
 </p>
 </div>
 <p>It appears that this assumption is likely correctly. Since the author is unstructured text data that will likely not be very useful to us, and the programs would probably be better structured as a dummy variable, we will reformat this data into a wide form where author and program are one column with comma-separated values. This format should be relatively easy to use for feature engineering later.</p>
 <p>I’ll leave the program descriptions and title alone for now–I think we can transform these into more informative text data. I don’t think the authors will be very useful, but maybe counting them could be so I’ll include a feature for that.</p>
-<pre class="r"><code>collapse_to_str &lt;- function(.x, delim = &quot;, &quot;) {
-  paste0(sort(unique(.x)), collapse = delim)
-}
-
-dat_wide &lt;- dat %&gt;%
-  dplyr::group_by(paper) %&gt;%
-  dplyr::summarize(
-    authors = collapse_to_str(name),
-    num_authors = length(unique(name)),
-    program_cats = collapse_to_str(program_category),
-    programs = collapse_to_str(program_desc),
-    .groups = &quot;drop&quot;
-  )
-
-LUT &lt;- dat %&gt;%
-  dplyr::select(paper, title, paper_date) %&gt;%
-  dplyr::distinct()
-
-dat2 &lt;- dat_wide %&gt;%
-  dplyr::left_join(LUT, by = &quot;paper&quot;)
-
-dplyr::glimpse(dat2)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>collapse_to_str <span class="ot">&lt;-</span> <span class="cf">function</span>(.x, <span class="at">delim =</span> <span class="st">&quot;, &quot;</span>) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(.x)), <span class="at">collapse =</span> delim)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dat_wide <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(paper) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">authors =</span> <span class="fu">collapse_to_str</span>(name),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_authors =</span> <span class="fu">length</span>(<span class="fu">unique</span>(name)),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">program_cats =</span> <span class="fu">collapse_to_str</span>(program_category),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">programs =</span> <span class="fu">collapse_to_str</span>(program_desc),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>LUT <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(paper, title, paper_date) <span class="sc">%&gt;%</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>()</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat_wide <span class="sc">%&gt;%</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(LUT, <span class="at">by =</span> <span class="st">&quot;paper&quot;</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat2)</span></code></pre></div>
 <pre><code>## Rows: 28,952
 ## Columns: 7
-## $ paper        &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;h0009&quot;, ~
-## $ authors      &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ransom&quot;, &quot;C~
-## $ num_authors  &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, ~
-## $ program_cats &lt;chr&gt; &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, ~
-## $ programs     &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Economy&quot;, &quot;De~
-## $ title        &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elasticities,~
-## $ paper_date   &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, 1989-10-~</code></pre>
+## $ paper        &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0~
+## $ authors      &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Su~
+## $ num_authors  &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, ~
+## $ program_cats &lt;chr&gt; &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Mi~
+## $ programs     &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of th~
+## $ title        &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Fami~
+## $ paper_date   &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-~</code></pre>
 <p>After looking at the data, I think that there are a few interesting questions we could ask using topic modeling, which is what I really wanted to do when I saw this dataset. My heart’s desire is to try and predict which categories a paper will have based on information like the title, date, number of authors, etc. (Not sure what other predictors might be derived from this dataset.) Note that each paper can have more than one category. We’ll address this issue in a bit.</p>
 </div>
-<div id="data-exploration" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Data exploration</h1>
-<p>We have a few potential predictors of interest:
-* Date published (month and year are potentially both predictors of category);
-* Number of authors a paper has; and
-* Any information which can be gleaned from the title of the paper.</p>
+<div id="data-exploration" class="section level1">
+<h1>Data exploration</h1>
+<p>We have a few potential predictors of interest: * Date published (month and year are potentially both predictors of category); * Number of authors a paper has; and * Any information which can be gleaned from the title of the paper.</p>
 <p>I do not plan to use any information about the authors (I suspect certain authors are strongly linked to which categories a paper has, but I just don’t think this is very interesting, and would also perform poorly out-of-sample) or the programs (which are subdivisions of category). Let’s try to explore each of these four potential predictors. In order to explore the effects on each category separately, we need to do one more data cleaning step: turning each of the categories into a dummy variable.</p>
-<pre class="r"><code>dat3 &lt;- dat2 %&gt;%
-  fastDummies::dummy_cols(
-    select_columns = c(&quot;program_cats&quot;),
-    split = &quot;,&quot;,
-    remove_selected_columns = TRUE
-  )
-
-dplyr::glimpse(dat3)</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="ot">&lt;-</span> dat2 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  fastDummies<span class="sc">::</span><span class="fu">dummy_cols</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">select_columns =</span> <span class="fu">c</span>(<span class="st">&quot;program_cats&quot;</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">split =</span> <span class="st">&quot;,&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat3)</span></code></pre></div>
 <pre><code>## Rows: 28,952
 ## Columns: 9
-## $ paper                &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;~
-## $ authors              &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ran~
-## $ num_authors          &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2~
-## $ programs             &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Econo~
-## $ title                &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elast~
-## $ paper_date           &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, ~
-## $ program_cats_Finance &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
-## $ program_cats_Macro   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
-## $ program_cats_Micro   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~</code></pre>
+## $ paper                &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h00~
+## $ authors              &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Rich~
+## $ num_authors          &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1~
+## $ programs             &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Developme~
+## $ title                &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hung~
+## $ paper_date           &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, ~
+## $ program_cats_Finance &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ program_cats_Macro   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ program_cats_Micro   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~</code></pre>
 <p>Having a version of this data in long form will be helpful as well.</p>
-<pre class="r"><code>dat3_long &lt;- dat3 %&gt;%
-  pivot_longer(
-    cols = starts_with(&quot;program_cats&quot;),
-    names_pattern = &quot;program_cats_(.*)&quot;
-  ) %&gt;%
-  dplyr::filter(value != 0)</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;program_cats&quot;</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">&quot;program_cats_(.*)&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(value <span class="sc">!=</span> <span class="dv">0</span>)</span></code></pre></div>
 <p>First, let’s look at the overall effect of date, and then decompose this trend into year and month.</p>
-<pre class="r"><code>dat3_long %&gt;%
-  dplyr::group_by(name, paper_date) %&gt;%
-  dplyr::count() %&gt;%
-  dplyr::ungroup() %&gt;%
-  ggplot(aes(x = paper_date, y = n, color = name, fill = name)) +
-  geom_line(alpha = 0.6) +
-  geom_smooth(method = &quot;loess&quot;) +
-  labs(
-    x = &quot;calendar date&quot;,
-    y = &quot;number of papers released in month&quot;,
-    color = &quot;paper category&quot;,
-    fill = &quot;paper category&quot;
-  ) +
-  theme(legend.position = c(0.1, 0.7)) +
-  coord_cartesian(expand = FALSE)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(name, paper_date) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> paper_date, <span class="at">y =</span> n, <span class="at">color =</span> name, <span class="at">fill =</span> name)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;calendar date&quot;</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;number of papers released in month&quot;</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;paper category&quot;</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;paper category&quot;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.7</span>)) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">expand =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/date%20counts-1.png" alt="A line chart showing the number of papers released in a given month on the y-axis and the calendar date, from 1980 to 2020, on the x-axis. There is one line for each of the three paper categories. There is a smoothed LOESS curve for each group." width="672" />
 <p class="caption">
-(#fig:date counts)The three groups are quite similar in early years, but the counts diverge for the groups over time. The bold curve is the LOESS trend.
+The three groups are quite similar in early years, but the counts diverge for the groups over time. The bold curve is the LOESS trend.
 </p>
 </div>
 <p>Next let’s look at the cumulative count.</p>
-<pre class="r"><code>dat3_long %&gt;%
-  dplyr::group_by(name, paper_date) %&gt;%
-  dplyr::count() %&gt;%
-  dplyr::ungroup(paper_date) %&gt;%
-  dplyr::arrange(paper_date) %&gt;%
-  dplyr::mutate(nn = cumsum(n)) %&gt;%
-  dplyr::ungroup() %&gt;%
-  ggplot(aes(x = paper_date, y = nn, color = name)) +
-  geom_line(size = 1) +
-  labs(
-    x = &quot;calendar date&quot;,
-    y = &quot;cumulative number of papers released up to date&quot;,
-    color = &quot;paper category&quot;
-  ) +
-  theme(legend.position = c(0.1, 0.7)) +
-  colorblindr::scale_color_OkabeIto() +
-  coord_cartesian(expand = FALSE)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(name, paper_date) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>(paper_date) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(paper_date) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">nn =</span> <span class="fu">cumsum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> paper_date, <span class="at">y =</span> nn, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;calendar date&quot;</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;cumulative number of papers released up to date&quot;</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;paper category&quot;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.7</span>)) <span class="sc">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  colorblindr<span class="sc">::</span><span class="fu">scale_color_OkabeIto</span>() <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">expand =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/date%20cumulative%20counts-1.png" alt="A line chart of cumulative number of papers released up to date vs. the calendar date. There is a separate line for each of the three paper categories." width="672" />
 <p class="caption">
-(#fig:date cumulative counts)The cumulative counts over time show a similar trend to the overall counts.
+The cumulative counts over time show a similar trend to the overall counts.
 </p>
 </div>
 <p>If we use a cumulative count over the month, we can look at the effect of year, smoothed to ignore any trend from the month.</p>
-<pre class="r"><code>dat3_long %&gt;%
-  dplyr::group_by(name, yr = lubridate::year(paper_date)) %&gt;%
-  dplyr::count(name = &quot;individual count&quot;) %&gt;%
-  dplyr::ungroup(yr) %&gt;%
-  dplyr::arrange(name, yr) %&gt;%
-  dplyr::mutate(&quot;cumulative count&quot; = cumsum(`individual count`)) %&gt;%
-  dplyr::ungroup() %&gt;%
-  tidyr::pivot_longer(
-    cols = ends_with(&quot;count&quot;),
-    names_to = &quot;how&quot;, values_to = &quot;count&quot;
-  ) %&gt;%
-  ggplot(aes(x = yr, y = count, color = name)) +
-  geom_line(size = 1) +
-  facet_wrap(vars(how), scales = &quot;free_y&quot;) +
-  labs(
-    x = &quot;calendar year&quot;,
-    y = NULL,
-    color = &quot;paper category&quot;
-  ) +
-  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;center&quot;) +
-  colorblindr::scale_color_OkabeIto()</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(name, <span class="at">yr =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(paper_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(<span class="at">name =</span> <span class="st">&quot;individual count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>(yr) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(name, yr) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="st">&quot;cumulative count&quot;</span> <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">individual count</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">&quot;count&quot;</span>),</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;how&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> yr, <span class="at">y =</span> count, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(how), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;calendar year&quot;</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;paper category&quot;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">legend.justification =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  colorblindr<span class="sc">::</span><span class="fu">scale_color_OkabeIto</span>()</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/year%20counts-1.png" alt="A line plot with two facets. The left facet shows cumulative count of papers vs. calendar year, smoothed over months, and the right facet shows the count of papers published each month vs. calendar year. Both plots have one line for each paper category." width="672" />
 <p class="caption">
-(#fig:year counts)The trend for years shows exactly the same trend as the previous plots, indicating that the year contributes mainly to the overall trend. This is expected and unsurprising.
+The trend for years shows exactly the same trend as the previous plots, indicating that the year contributes mainly to the overall trend. This is expected and unsurprising.
 </p>
 </div>
 <p>Finally, we can directly examine whether month has an effect or not.</p>
-<pre class="r"><code>dat3_long %&gt;%
-  dplyr::group_by(name,
-                  mth = lubridate::month(paper_date, label = TRUE),
-                  yr = lubridate::year(paper_date)) %&gt;%
-  dplyr::count() %&gt;%
-  dplyr::ungroup(yr) %&gt;%
-  dplyr::summarize(mean_monthly = mean(n)) %&gt;%
-  dplyr::mutate(mean_category = mean(mean_monthly)) %&gt;%
-  dplyr::ungroup() %&gt;%
-  ggplot(aes(y = forcats::fct_rev(mth), x = mean_monthly)) +
-  geom_col(color = &quot;black&quot;, fill = &quot;gray&quot;) +
-  facet_wrap(vars(name), scales = &quot;free_x&quot;) +
-  geom_vline(aes(xintercept = mean_category, group = name), size = 1, lty = 2) +
-  labs(x = &quot;mean number of papers released&quot;, y = &quot;month&quot;)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(name,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">mth =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(paper_date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">yr =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(paper_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>(yr) <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">mean_monthly =</span> <span class="fu">mean</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">mean_category =</span> <span class="fu">mean</span>(mean_monthly)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> forcats<span class="sc">::</span><span class="fu">fct_rev</span>(mth), <span class="at">x =</span> mean_monthly)) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_category, <span class="at">group =</span> name), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;mean number of papers released&quot;</span>, <span class="at">y =</span> <span class="st">&quot;month&quot;</span>)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups` argument.</code></pre>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/month%20counts-1.png" alt="A horizontal bar chart with three facets. The first facet (starting from the right) is for the finance category, the middle is for the macro category, and the left is for the micro category. All three charts show the mean number of papers published on the x-axis and the month on the y-axis. Each facet has a dashed line indicating the overall mean for each category." width="672" />
 <p class="caption">
-(#fig:month counts)The dashed line in this plot shows the mean across all months. We see that across all three categories, there are really no noticeable deviations from this mean, except for maybe in July but this trend is so small it is not worth investigating. There appears to be no seasonality by month.
+The dashed line in this plot shows the mean across all months. We see that across all three categories, there are really no noticeable deviations from this mean, except for maybe in July but this trend is so small it is not worth investigating. There appears to be no seasonality by month.
 </p>
 </div>
 <p>Now let’s look at the effect of the number of authors.</p>
-<pre class="r"><code>dat3_long %&gt;%
-  dplyr::group_by(num_authors, name) %&gt;%
-  dplyr::count() %&gt;%
-  ggplot(aes(x = as.factor(num_authors), y = n)) +
-  geom_col(color = &quot;black&quot;, fill = &quot;gray&quot;) +
-  facet_wrap(vars(name), ncol = 1, scales = &quot;free_y&quot;) +
-  labs(x = &quot;number of authors&quot;, y = &quot;frequency&quot;)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(num_authors, name) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(num_authors), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;number of authors&quot;</span>, <span class="at">y =</span> <span class="st">&quot;frequency&quot;</span>)</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/author%20count%20effect-1.png" alt="A bar chart with three facets. The top is for the finance category, the middle is for the macro category, and the bottom is for the micro category. Each facet shows the number of authors on the x-axis, and the count of how many papers in the facet category have that number of authors on the y-axis." width="672" />
 <p class="caption">
-(#fig:author count effect)The distribution of number of papers with a given number of authors appears to be similarly shaped across all three paper categories and is likely not predictive.
+The distribution of number of papers with a given number of authors appears to be similarly shaped across all three paper categories and is likely not predictive.
 </p>
 </div>
 <p>Now we can take a look at the unstructured text data. This can be a bit complicated, but there are a few good visualizations. I am going to look at the effect of individual words only–<em>n</em>-grams could also potentially be predictive, but are more complicated. If I were being paid for this, I would probably at least look at bigrams, but I am not being paid for this.</p>
 <p>A quick note on stop words: sometimes, it is true that stop words can be predictive of certain categories. However, I simply do not think that these are very interesting predictors, so I am going to take them out. First let’s process the text data.</p>
-<pre class="r"><code>dat3_tp &lt;- dat3_long %&gt;%
-  tidytext::unnest_tokens(word, title) %&gt;%
-  dplyr::anti_join(tidytext::stop_words, by = &quot;word&quot;) %&gt;%
-  # Remove words that are numbers
-  dplyr::filter(stringr::str_detect(word, &quot;[0-9]&quot;, negate = TRUE))</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dat3_tp <span class="ot">&lt;-</span> dat3_long <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(word, title) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">anti_join</span>(tidytext<span class="sc">::</span>stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove words that are numbers</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(word, <span class="st">&quot;[0-9]&quot;</span>, <span class="at">negate =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <p>Now let’s look at which words occur most frequently for each category.</p>
-<pre class="r"><code>dat3_tp %&gt;%
-  group_by(name) %&gt;%
-  count(word) %&gt;%
-  slice_max(order_by = n, n = 10) %&gt;%
-  ggplot(aes(x = n, y = tidytext::reorder_within(word, n, name))) +
-  geom_col(color = &quot;black&quot;, fill = &quot;gray&quot;) +
-  facet_wrap(vars(name), scales = &quot;free&quot;) +
-  scale_y_reordered() +
-  labs(x = &quot;frequency&quot;, y = NULL)</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dat3_tp <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> n, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> tidytext<span class="sc">::</span><span class="fu">reorder_within</span>(word, n, name))) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;frequency&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/word%20counts-1.png" alt="A bar chart with three facets, one for each of the three paper categories. Each bar chart shows the top ten most frequently occurring words in the titles of each category of paper." width="672" />
 <p class="caption">
-(#fig:word counts)While some words overlap between categories, such as evidence, there are definitely differential word counts among the three groups. Since there are high-count words which overlap, we need to use a different measure to determine what title words are predictive of category.
+While some words overlap between categories, such as evidence, there are definitely differential word counts among the three groups. Since there are high-count words which overlap, we need to use a different measure to determine what title words are predictive of category.
 </p>
 </div>
 <p>For our final exploratory plot, let’s make a more complicated visualization: we can use the <code>tidylo</code> package to compute the log-odds of a word being associated with a particular category. There are a few pitfalls here (we will not be taking correlations between categories into account, notably), but for the sake of statistical simplicity I am going to ignore that. This can potentially be a lot more useful than raw counts for determining if a particular word will be predictive for a category.</p>
-<pre class="r"><code>dat3_tp %&gt;%
-  group_by(name) %&gt;%
-  count(word) %&gt;%
-  ungroup() %&gt;%
-  bind_log_odds(set = name, feature = word, n = n) %&gt;%
-  group_by(name) %&gt;%
-  mutate(lo = log_odds_weighted) %&gt;%
-  arrange(lo) %&gt;%
-  filter(row_number() &gt; max(row_number()) - 5 | row_number() &lt;= 5) %&gt;%
-  ggplot(aes(x = lo, y = tidytext::reorder_within(word, lo, name))) +
-  geom_vline(xintercept = 0) +
-  geom_col(color = &quot;black&quot;, fill = &quot;gray&quot;) +
-  facet_wrap(vars(name), scales = &quot;free_y&quot;) +
-  scale_y_reordered() +
-  labs(x = &quot;weighted log-odds&quot;, y = NULL, fill = NULL) +
-  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;center&quot;)</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dat3_tp <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_log_odds</span>(<span class="at">set =</span> name, <span class="at">feature =</span> word, <span class="at">n =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lo =</span> log_odds_weighted) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(lo) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&gt;</span> <span class="fu">max</span>(<span class="fu">row_number</span>()) <span class="sc">-</span> <span class="dv">5</span> <span class="sc">|</span> <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lo, <span class="at">y =</span> tidytext<span class="sc">::</span><span class="fu">reorder_within</span>(word, lo, name))) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;weighted log-odds&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">legend.justification =</span> <span class="st">&quot;center&quot;</span>)</span></code></pre></div>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/word%20log%20odds-1.png" alt="A bar chart with three facets, one for each paper category. Each chart shows the five words with the highest and five words with the lowest weighted log-odds for that category." width="672" />
 <p class="caption">
-(#fig:word log odds)Whereas the counts made it quite difficult to distinguish between categories due to overlap, we can see that there are unique words associated with each category that have large predictive power. For macro and micro categories, there are words that are both highly predictive and highly anti-predictive, while for finance there are words which are highly predictive, but not many words which are highly anti-predictive. The top 5 maximum and bottom 5 minimum log-odds words are shown for each category.
+Whereas the counts made it quite difficult to distinguish between categories due to overlap, we can see that there are unique words associated with each category that have large predictive power. For macro and micro categories, there are words that are both highly predictive and highly anti-predictive, while for finance there are words which are highly predictive, but not many words which are highly anti-predictive. The top 5 maximum and bottom 5 minimum log-odds words are shown for each category.
 </p>
 </div>
 <p>OK, great. Now that we have explored our data a bit, we need to decide how we will actually model the categories.</p>
 </div>
-<div id="modeling-strategy" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Modeling strategy</h1>
+<div id="modeling-strategy" class="section level1">
+<h1>Modeling strategy</h1>
 <p>Since each paper has multiple categories, it’s difficult to categorize papers to categories (in general a multi-label classification problem is much more difficult than a single-label classification problem). There are a few strategies we can take here:</p>
 <ol style="list-style-type: decimal">
 <li><p>Reduce the question to a simpler question of interest. E.g., can we predict whether a given paper will have the “micro” category or not? This is probably the easiest solution but it is the least exciting.</p></li>
@@ -627,47 +707,47 @@ dplyr::glimpse(dat3)</code></pre>
 <li><p>Use a more complicated algorithm specifically for multi-label classification. I don’t really want to do this because I don’t understand any of them that well. Maybe it is the best option but I can’t use <code>tidymodels</code> for this.</p></li>
 </ol>
 <p>The LP method is probably the “easiest” in terms of just using models and code that already exist. But this can potentially be quite annoying if any of the levels are sparse, so let’s take a quick look at that.</p>
-<pre class="r"><code>dat2 %&gt;%
-  count(program_cats) %&gt;%
-  mutate(program_cats = forcats::fct_reorder(program_cats, n)) %&gt;%
-  ggplot(aes(x = program_cats, y = n)) +
-  geom_col(col = &quot;black&quot;, fill = &quot;gray&quot;) +
-  geom_label(aes(label = n), nudge_y = 700) +
-  labs(
-    x = &quot;set of paper categories&quot;,
-    y = &quot;frequency&quot;
-  ) +
-  coord_flip()</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dat2 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(program_cats) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">program_cats =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(program_cats, n)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> program_cats, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">nudge_y =</span> <span class="dv">700</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;set of paper categories&quot;</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;frequency&quot;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="figure">
 <img src="tidytuesday_files/figure-html/unnamed-chunk-1-1.png" alt="A horizontal bar chart showing the levels of the power set of paper categories on the y-axis, and the count of papers which have those categories on the x-axis. Each bar has a text label showing the number of papers." width="672" />
 <p class="caption">
-Figure 4.1: Counts of outcome categories after using the level powerset transformation on the set of potential labels. There is a large amount of class imbalance, which suggests that the LP method with a standard multiclass learner may be an inefficient approach to this problem.
+Counts of outcome categories after using the level powerset transformation on the set of potential labels. There is a large amount of class imbalance, which suggests that the LP method with a standard multiclass learner may be an inefficient approach to this problem.
 </p>
 </div>
 <p>The classes are severely imbalanced when the LP transformation is implied–the distribution of counts implies that micro only will be the easiest label to predict, but we can even see that the simpler problem of classifying papers into having vs. not having the micro category would also pose a class imbalance problem. Next let’s examine whether the binary relevance method would have a similar class imbalance issue. We can construct dummy variables for each of the three categories and examine the frequency of each category overall.</p>
-<pre class="r"><code>dat3 %&gt;%
-  pivot_longer(
-    cols = starts_with(&quot;program_cats&quot;),
-    names_pattern = &quot;program_cats_(.*)&quot;
-  ) %&gt;%
-  group_by(name) %&gt;%
-  summarize(val = sum(value)) %&gt;%
-  ggplot(aes(y = forcats::fct_reorder(name, val), x = val)) +
-  geom_vline(xintercept = nrow(dat2)/2, size = 2, lty = 2) + 
-  geom_col(col = &quot;black&quot;, fill = &quot;gray&quot;) +
-  geom_label(aes(label = paste0(val, &quot;\n &quot;, round(val/nrow(dat2) * 100), &quot;%&quot;)),
-             nudge_x = 1400, size = 5) +
-  geom_vline(xintercept = nrow(dat2), size = 2, lty = 2) +
-  annotate(&quot;label&quot;, x = nrow(dat2) - 1000, y = &quot;Macro&quot;,
-           label = paste(&quot;total:&quot;, nrow(dat2)), size = 5) +
-  labs(
-    x = &quot;frequency&quot;,
-    y = &quot;program category&quot;
-  )</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;program_cats&quot;</span>),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">&quot;program_cats_(.*)&quot;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">val =</span> <span class="fu">sum</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(name, val), <span class="at">x =</span> val)) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">nrow</span>(dat2)<span class="sc">/</span><span class="dv">2</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(val, <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>, <span class="fu">round</span>(val<span class="sc">/</span><span class="fu">nrow</span>(dat2) <span class="sc">*</span> <span class="dv">100</span>), <span class="st">&quot;%&quot;</span>)),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">nudge_x =</span> <span class="dv">1400</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">nrow</span>(dat2), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="fu">nrow</span>(dat2) <span class="sc">-</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="st">&quot;Macro&quot;</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;total:&quot;</span>, <span class="fu">nrow</span>(dat2)), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;frequency&quot;</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;program category&quot;</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="figure">
 <img src="tidytuesday_files/figure-html/unnamed-chunk-2-1.png" alt="A horizontal bar chart showing the program category on the y-axis and the total number of papers which have that category associated on the x-axis. There is a vertical line showing the total number of papers (28952) as well, and each bar is labeled with the count and percentage of papers that fall into that category." width="672" />
 <p class="caption">
-Figure 4.2: Distribution of classes for each category. The closer a bar is to the middle, the closer that class is to being balanced being positive and negative occurrences in the observed data.
+Distribution of classes for each category. The closer a bar is to the middle, the closer that class is to being balanced being positive and negative occurrences in the observed data.
 </p>
 </div>
 <p>We see that the micro and macro classes are both fairly balanced, but the finance class occurs less frequently and could potentially present issues in classification. I think a detailed treatment of upsampling and downsampling is beyond what I am inclined to do for the purpose of this model–the good news is that when you’re building a predictive model you don’t have to use uniform preprocessing across all your ensemble candidate models because there are no rules except optimize your predictive metrics 😁 but I think I’ll just not worry about it since the only consequence of poor prediction metrics in this case is the damage to my dignity.</p>
@@ -675,101 +755,101 @@ Figure 4.2: Distribution of classes for each category. The closer a bar is to th
 <p>First things first, I always like to specify which prediction metric I’ll focus on optimizing up-front. I think ideally we would want to tune all three of the independent models such that they optimize, e.g., the Hamming loss of the multi-label problem. But I am feeling a bit too lazy to code that, so I’ll train each model on the same resamples and optimize for my personal favorite measure of binary classification accuracy, the MCC. Optimizing the three independent models does not necessarily equate to optimizing the multi-label model, but it will be good enough for me.</p>
 <p>The final ingredient that we need to decide on is the modeling strategy for each of the three independent models. We could go crazy and fit an ensemble for each of the three models, but I think that’s overkill. My favorite model is the elastic net, which fortunately tends to work well with text-based predictors, so I’ll build an elastic net model for each category.</p>
 </div>
-<div id="model-fitting" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Model fitting</h1>
-<p>The first step is to <strong>plan our data budget</strong> (tidymodels dev Julia Silge uses this phrase and I really like it). We will split our data into training and testing sets, and then from the training set we will construct resamples using Monte Carlo cross validation, which I think is a great compromise between the advantages of LOO cross validation and how computationally LOO cv is to actually implement on a large dataset. For this exercise I’ll only use 100 resamples so this doesn’t take years for the model to run. When I learned this the first time, I learned that 70% training is a good balance so that’s what I always use, although I’m sure whatever is probably fine.</p>
-<pre class="r"><code>set.seed(370)
-dat_split &lt;- dat3 %&gt;% rsample::initial_split(prop = 0.7)
-dat_train &lt;- rsample::training(dat_split)
-dat_test &lt;- rsample::testing(dat_split)
-dat_resamples &lt;- dat_train %&gt;% rsample::mc_cv(times = 20)</code></pre>
+<div id="model-fitting" class="section level1">
+<h1>Model fitting</h1>
+<p>The first step is to <strong>plan our data budget</strong> (tidymodels dev Julia Silge uses this phrase and I really like it). We will split our data into training and testing sets, and then from the training set we will construct resamples using Monte Carlo cross validation, which I think is a great compromise between the advantages of LOO cross validation and how computationally LOO cv is to actually implement on a large dataset. For this exercise I’ll only use 10 resamples so this doesn’t take years for the model to run. When I learned this the first time, I learned that 70% training is a good balance so that’s what I always use, although I’m sure whatever is probably fine.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">370</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>dat_split <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(<span class="at">prop =</span> <span class="fl">0.7</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>dat_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(dat_split)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>dat_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(dat_split)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>dat_resamples <span class="ot">&lt;-</span> dat_train <span class="sc">%&gt;%</span> rsample<span class="sc">::</span><span class="fu">mc_cv</span>(<span class="at">times =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p>Now we’ll need to do a little bit of preprocessing. We can do this using the <code>recipes</code> package. (Note that the text is not yet processed in this dataframe because I did my work in a weird order.) We actually need to set up three recipes in this case, one for each outcome variable. Normally I would like to tune the number of tokens to include in the model, but in this case I’ll just choose the top 100 to reduce tuning time. If that is too many, they should get eliminated by the model anyways.</p>
-<pre class="r"><code>micro_recipe &lt;- dat3 %&gt;%
-  # Recipe with the formula specification for the model
-  recipe(program_cats_Micro ~ paper_date + title) %&gt;%
-  # Make sure outcome is a factor that glmnet won&#39;t coerce to numeric
-  step_bin2factor(all_outcomes()) %&gt;%
-  # Turn the title into individual words
-  step_tokenize(title) %&gt;%
-  # Remove stopwords
-  step_stopwords(title) %&gt;%
-  # We don&#39;t need every word, but we aren&#39;t sure how many we need.
-  step_tokenfilter(title, max_tokens = 100) %&gt;%
-  # Turn tokenlist into tf/idf
-  step_tfidf(title) %&gt;%
-  # extract year from date
-  step_date(paper_date, features = &quot;year&quot;, keep_original_cols = FALSE)
-
-macro_recipe &lt;- dat3 %&gt;%
-  recipe(program_cats_Macro ~ paper_date + title) %&gt;%
-  step_bin2factor(all_outcomes()) %&gt;%
-  step_tokenize(title) %&gt;%
-  step_stopwords(title) %&gt;%
-  step_tokenfilter(title, max_tokens = 100) %&gt;%
-  step_tfidf(title) %&gt;%
-  step_date(paper_date, features = &quot;year&quot;, keep_original_cols = FALSE)
-
-finance_recipe &lt;- dat3 %&gt;%
-  recipe(program_cats_Finance ~ paper_date + title) %&gt;%
-  step_bin2factor(all_outcomes()) %&gt;%
-  step_tokenize(title) %&gt;%
-  step_stopwords(title) %&gt;%
-  step_tokenfilter(title, max_tokens = 100) %&gt;%
-  step_tfidf(title) %&gt;%
-  step_date(paper_date, features = &quot;year&quot;, keep_original_cols = FALSE)</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>micro_recipe <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recipe with the formula specification for the model</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(program_cats_Micro <span class="sc">~</span> paper_date <span class="sc">+</span> title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make sure outcome is a factor that glmnet won&#39;t coerce to numeric</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_bin2factor</span>(<span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Turn the title into individual words</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove stopwords</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_stopwords</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We don&#39;t need every word, but we aren&#39;t sure how many we need.</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(title, <span class="at">max_tokens =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Turn tokenlist into tf/idf</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tfidf</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract year from date</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(paper_date, <span class="at">features =</span> <span class="st">&quot;year&quot;</span>, <span class="at">keep_original_cols =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>macro_recipe <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(program_cats_Macro <span class="sc">~</span> paper_date <span class="sc">+</span> title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_bin2factor</span>(<span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_stopwords</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(title, <span class="at">max_tokens =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tfidf</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(paper_date, <span class="at">features =</span> <span class="st">&quot;year&quot;</span>, <span class="at">keep_original_cols =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>finance_recipe <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(program_cats_Finance <span class="sc">~</span> paper_date <span class="sc">+</span> title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_bin2factor</span>(<span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_stopwords</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(title, <span class="at">max_tokens =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tfidf</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(paper_date, <span class="at">features =</span> <span class="st">&quot;year&quot;</span>, <span class="at">keep_original_cols =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>So now our preprocessors are set up. Next we can set up our elastic net model, using the <code>glmnet</code> engine. We will tune both the penalty and the mixture parameters of the model.</p>
-<pre class="r"><code># We want to use logistic regression
-model_spec &lt;- parsnip::logistic_reg(penalty = tune(), mixture = tune()) %&gt;%
-  # use the glmnet package to fit the model
-  set_engine(&quot;glmnet&quot;) %&gt;%
-  # we are doing a classification problem
-  set_mode(&quot;classification&quot;)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We want to use logistic regression</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>model_spec <span class="ot">&lt;-</span> parsnip<span class="sc">::</span><span class="fu">logistic_reg</span>(<span class="at">penalty =</span> <span class="fu">tune</span>(), <span class="at">mixture =</span> <span class="fu">tune</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the glmnet package to fit the model</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glmnet&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we are doing a classification problem</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <p>Now we can define a workflow set, which will bundle this model together with each of our preprocessors.</p>
-<pre class="r"><code>wf_set &lt;- workflow_set(
-  preproc = list(micro = micro_recipe,
-                 macro = macro_recipe,
-                 finance = finance_recipe),
-  model = list(mod = model_spec)
-)</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>wf_set <span class="ot">&lt;-</span> <span class="fu">workflow_set</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">preproc =</span> <span class="fu">list</span>(<span class="at">micro =</span> micro_recipe,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">macro =</span> macro_recipe,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">finance =</span> finance_recipe),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">list</span>(<span class="at">mod =</span> model_spec)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Now we can tune each model in the workflow set. My favorite tuning/optimization algorithm is simulated annealing, but I think that’s a bit overkill here. However, instead of doing something like a grid search, I’ll speed up our results a bit by using a racing method from the <code>finetune</code> package. Normally we would want to use a lot more resamples and a lot more parameter options here, but I do not want this page to take 10 hours to build.</p>
-<pre class="r"><code># Register a parallel backend for improved speed. This interacts
-# with the improvement gained by using a racing method to improve
-# computation time even more, if there is no significant overhead.
-doParallel::registerDoParallel()
-
-tuned &lt;- wf_set %&gt;%
-  workflow_map(
-    fn = &quot;tune_race_anova&quot;,
-    resamples = dat_resamples,
-    grid = 10,
-    metrics = metric_set(mcc),
-    verbose = TRUE 
-  )</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Register a parallel backend for improved speed. This interacts</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with the improvement gained by using a racing method to improve</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># computation time even more, if there is no significant overhead.</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>doParallel<span class="sc">::</span><span class="fu">registerDoParallel</span>()</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>tuned <span class="ot">&lt;-</span> wf_set <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow_map</span>(</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fn =</span> <span class="st">&quot;tune_race_anova&quot;</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> dat_resamples,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> <span class="fu">grid_regular</span>(<span class="fu">penalty</span>(), <span class="fu">mixture</span>(), <span class="at">levels =</span> <span class="dv">10</span>),</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">metric_set</span>(mcc),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">TRUE</span> </span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## i 1 of 3 tuning:     micro_mod</code></pre>
-<pre><code>## v 1 of 3 tuning:     micro_mod (3m 20s)</code></pre>
+<pre><code>## v 1 of 3 tuning:     micro_mod (1m 57.4s)</code></pre>
 <pre><code>## i 2 of 3 tuning:     macro_mod</code></pre>
-<pre><code>## v 2 of 3 tuning:     macro_mod (2m 10.7s)</code></pre>
+<pre><code>## v 2 of 3 tuning:     macro_mod (1m 33.5s)</code></pre>
 <pre><code>## i 3 of 3 tuning:     finance_mod</code></pre>
-<pre><code>## v 3 of 3 tuning:     finance_mod (2m 53.4s)</code></pre>
-<pre class="r"><code># It&#39;s always polite to close your cluster when you finish
-doParallel::stopImplicitCluster()</code></pre>
+<pre><code>## v 3 of 3 tuning:     finance_mod (2m 12.7s)</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It&#39;s always polite to close your cluster when you finish</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>doParallel<span class="sc">::</span><span class="fu">stopImplicitCluster</span>()</span></code></pre></div>
 <p>Now that the models are tuned, we need to extract them. Unfortunately there isn’t really a slick way to do this 🙄, hopefully the tidymodels team will expand <code>workflow_map</code> capabilities in the future to make this easier. I also think I am using it differently from how the creators intended here, but that has never stopped me before.</p>
 <p>Since we didn’t do a regular grid search (and the search we used was not very dense anyways), we can’t make a nice heatmap, of MCC for each group by the two hyperparameters, so I’ll settle for a table.</p>
-<pre class="r"><code>tuned %&gt;%
-  dplyr::mutate(metrics = map(result, collect_metrics)) %&gt;%
-  dplyr::select(wflow_id, metrics) %&gt;%
-  tidyr::unnest(cols = metrics) %&gt;%
-  dplyr::group_by(wflow_id) %&gt;%
-  dplyr::slice_max(mean, n = 1) %&gt;%
-  dplyr::ungroup() %&gt;%
-  dplyr::transmute(
-    category = gsub(&quot;_mod&quot;, &quot;&quot;, wflow_id),
-    `log10(penalty)` = scales::number(log10(penalty), accuracy = 0.0001),
-    mixture = scales::number(mixture, accuracy = 0.0001),
-    `mean MCC` = scales::number(mean, accuracy = 0.0001),
-    `std. err.` = scales::number(std_err, accuracy = 0.0001)
-  ) %&gt;%
-  knitr::kable()</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>tuned <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">metrics =</span> <span class="fu">map</span>(result, collect_metrics)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(wflow_id, metrics) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(<span class="at">cols =</span> metrics) <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(wflow_id) <span class="sc">%&gt;%</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_max</span>(mean, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">category =</span> <span class="fu">gsub</span>(<span class="st">&quot;_mod&quot;</span>, <span class="st">&quot;&quot;</span>, wflow_id),</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">log10(penalty)</span><span class="st">`</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">number</span>(<span class="fu">log10</span>(penalty), <span class="at">accuracy =</span> <span class="fl">0.0001</span>),</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">mixture =</span> scales<span class="sc">::</span><span class="fu">number</span>(mixture, <span class="at">accuracy =</span> <span class="fl">0.0001</span>),</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">mean MCC</span><span class="st">`</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">number</span>(mean, <span class="at">accuracy =</span> <span class="fl">0.0001</span>),</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">std. err.</span><span class="st">`</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">number</span>(std_err, <span class="at">accuracy =</span> <span class="fl">0.0001</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -796,16 +876,203 @@ std. err.
 finance
 </td>
 <td style="text-align:left;">
--8.5926
+-10.0000
 </td>
 <td style="text-align:left;">
-0.1689
+0.3333
 </td>
 <td style="text-align:left;">
-0.3284
+0.3305
 </td>
 <td style="text-align:left;">
-0.0032
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-8.8889
+</td>
+<td style="text-align:left;">
+0.3333
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-7.7778
+</td>
+<td style="text-align:left;">
+0.3333
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-6.6667
+</td>
+<td style="text-align:left;">
+0.3333
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-5.5556
+</td>
+<td style="text-align:left;">
+0.3333
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-4.4444
+</td>
+<td style="text-align:left;">
+0.3333
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-10.0000
+</td>
+<td style="text-align:left;">
+0.5556
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-8.8889
+</td>
+<td style="text-align:left;">
+0.5556
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-7.7778
+</td>
+<td style="text-align:left;">
+0.5556
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-6.6667
+</td>
+<td style="text-align:left;">
+0.5556
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-5.5556
+</td>
+<td style="text-align:left;">
+0.5556
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+finance
+</td>
+<td style="text-align:left;">
+-4.4444
+</td>
+<td style="text-align:left;">
+0.5556
+</td>
+<td style="text-align:left;">
+0.3305
+</td>
+<td style="text-align:left;">
+0.0034
 </td>
 </tr>
 <tr>
@@ -813,16 +1080,16 @@ finance
 macro
 </td>
 <td style="text-align:left;">
--2.7274
+-2.2222
 </td>
 <td style="text-align:left;">
-0.8868
+0.5556
 </td>
 <td style="text-align:left;">
-0.4472
+0.4464
 </td>
 <td style="text-align:left;">
-0.0024
+0.0025
 </td>
 </tr>
 <tr>
@@ -830,28 +1097,22 @@ macro
 micro
 </td>
 <td style="text-align:left;">
--5.0193
+-3.3333
 </td>
 <td style="text-align:left;">
-0.4265
+1.0000
 </td>
 <td style="text-align:left;">
-0.4755
+0.4730
 </td>
 <td style="text-align:left;">
-0.0031
+0.0052
 </td>
 </tr>
 </tbody>
 </table>
 <p>Interestingly, it looks like all of the models are quite different–for the micro category, a model closer to LASSO is operator, while for macro and finance, a model closer to ridge regression is better. Now let’s apply the best predictions to our model specifications, and then we can fit the model.</p>
 <p>…or, that would be my next goal anyways. Now I’ve hit my time limit on this assignment, so I decided to stop here 😁. Maybe if I ever have some spare time (yeah right), I’ll come back and evaluate the models, but for now this is how they will remain.</p>
-<!--
-
-
-
-# Model results
--->
 </div>
 
 
