@@ -372,18 +372,18 @@ So, I have decided on the **binary relevance** technique for multi-label classif
 
 First things first, I always like to specify which prediction metric I'll focus on optimizing up-front. I think ideally we would want to tune all three of the independent models such that they optimize, e.g., the Hamming loss of the multi-label problem. But I am feeling a bit too lazy to code that, so I'll train each model on the same resamples and optimize for my personal favorite measure of binary classification accuracy, the MCC. Optimizing the three independent models does not necessarily equate to optimizing the multi-label model, but it will be good enough for me.
 
-The final ingredient that we need to decide on is the modeling strategy for each of the three independent models. We could go crazy and fit an ensemble for each of the three models, but I think that's overkill. My favorite model is the elastic net, which fortunately tends to work well with text-based predictors, so I'll build an elastic net model for each category.
+The final ingredient that we need to decide on is the modeling strategy for each of the three independent models. We could go crazy and fit an ensemble for each of the three models, but I think that's overkill. My favorite model is the elastic net, which fortunately tends to work well with text-based predictors, so I'll build an elastic net model for each category. In "real life" (whatever that phrase is supposed to mean, I guess if getting good performance was really important to me for this project), I would also probably try a linear SVM (which Julia Silge says tends to be a good fit for these kinds of problems), as well as my favorite ML model, random forest.
 
 # Model fitting
 
-The first step is to **plan our data budget** (tidymodels dev Julia Silge uses this phrase and I really like it). We will split our data into training and testing sets, and then from the training set we will construct resamples using Monte Carlo cross validation, which I think is a great compromise between the advantages of LOO cross validation and how computationally LOO cv is to actually implement on a large dataset. For this exercise I'll only use 10 resamples so this doesn't take years for the model to run. When I learned this the first time, I learned that 70% training is a good balance so that's what I always use, although I'm sure whatever is probably fine.
+The first step is to **plan our data budget** (tidymodels dev Julia Silge uses this phrase and I really like it). We will split our data into training and testing sets, and then from the training set we will construct resamples using Monte Carlo cross validation, which I think is a great compromise between the advantages of LOO cross validation and how computationally LOO cv is to actually implement on a large dataset. For this exercise I'll only use 25 resamples so this doesn't take years for the model to run. I had a professor once who suggested that 2/3 training was the best proportion based on a simulation study he published, so let's use that.
 
 ```{r data splitting and resamples}
 set.seed(370)
-dat_split <- dat3 %>% rsample::initial_split(prop = 0.7)
+dat_split <- dat3 %>% rsample::initial_split(prop = 2/3)
 dat_train <- rsample::training(dat_split)
 dat_test <- rsample::testing(dat_split)
-dat_resamples <- dat_train %>% rsample::mc_cv(times = 10)
+dat_resamples <- dat_train %>% rsample::mc_cv(times = 25, prop = 2/3)
 ```
 
 Now we'll need to do a little bit of preprocessing. We can do this using the `recipes` package. (Note that the text is not yet processed in this dataframe because I did my work in a weird order.) We actually need to set up three recipes in this case, one for each outcome variable. Normally I would like to tune the number of tokens to include in the model, but in this case I'll just choose the top 100 to reduce tuning time. If that is too many, they should get eliminated by the model anyways.
@@ -448,7 +448,7 @@ wf_set <- workflow_set(
 
 Now we can tune each model in the workflow set. My favorite tuning/optimization algorithm is simulated annealing, but I think that's a bit overkill here. However, instead of doing something like a grid search, I'll speed up our results a bit by using a racing method from the `finetune` package. Normally we would want to use a lot more resamples and a lot more parameter options here, but I do not want this page to take 10 hours to build.
 
-```{r fitting}
+```{r fitting, cache = TRUE}
 # Register a parallel backend for improved speed. This interacts
 # with the improvement gained by using a racing method to improve
 # computation time even more, if there is no significant overhead.
@@ -489,7 +489,7 @@ tuned %>%
   knitr::kable()
 ```
 
-Interestingly, it looks like all of the models are quite different--for the micro category, a model closer to LASSO is operator, while for macro and finance, a model closer to ridge regression is better. Now let's apply the best predictions to our model specifications, and then we can fit the model.
+Interestingly, it looks like all of the models are quite different. Now let's apply the best predictions to our model specifications, and then we can fit the model.
 
 ...or, that would be my next goal anyways. Now I've hit my time limit on this assignment, so I decided to stop here `r emo::ji("grin")`. Maybe if I ever have some spare time (yeah right), I'll come back and evaluate the models, but for now this is how they will remain.
 

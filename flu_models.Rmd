@@ -177,7 +177,7 @@ tree_wf <- workflow() |>
 
 I am going to use a bit of an in-depth tuning strategy here: first I will use Latin hypercube sampling to get a grid of potential parameter estimates that covers the space of potential parameter values pretty well. Then, I will use the optimum value from this grid search as the initial value for simulated annealing. The optimal parameter results from simulated annealing will be used for fitting the model.
 
-```{r TreeTuning}
+```{r TreeTuning, cache = TRUE}
 # Register a parallel backend so this doesn't take all day
 doParallel::registerDoParallel()
 # Define a grid of potential parameter values using latin hypercube sampling. I
@@ -309,7 +309,7 @@ lasso_wf <- workflow() |>
 
 For LASSO, we likely don't need to do as in-depth of a tuning routine, but for the sake of consistency, I'll still tune the penalty parameter in two stages. I'll use a normal grid search for the first stage (there is no real need to use latin hypercube sampling when we are only tuning one parameter), and then use that as the initial guess for simulated annealing. Hopefully this model will work better than the tree.
 
-```{r LassoTuning}
+```{r LassoTuning, cache = TRUE}
 # Register a parallel backend so this doesn't take all day
 doParallel::registerDoParallel()
 # Define a grid of potential parameter values. I again allowed dials to choose
@@ -438,7 +438,7 @@ rf_wf <- workflow() |>
 
 For the random forest, I'll skip the initial grid search and just let the simulated annealing algorithm run a bit longer than before.
 
-```{r RFTuning}
+```{r RFTuning, cache = TRUE}
 # Register a parallel backend so this doesn't take all day
 doParallel::registerDoParallel()
 # Since the potential values of mtry depend on the data, we need to finalize
@@ -566,7 +566,7 @@ For the final step of this analysis, we need to choose one of the models. i'm go
 3. The LASSO model is much simpler than a random forest model, and less prone to overfitting than a decision tree (though I doubt that will matter much for this model).
 
 Now I will fit this model on the testing set to evaluate the out-of-sample performance.
-```{r TestFit}
+```{r TestFit, cache = TRUE}
 lasso_test_fit <- final_lasso_wf |>
   last_fit(split = dat_split, metrics = bt_met)
 ```

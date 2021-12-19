@@ -1,17 +1,20 @@
 /* CSS for Zane's MADA website! */
 
 /* import fonts */
-@import url('https://fonts.googleapis.com/css?family=Roboto|Inconsolata|Yeseva+One')
+@import url('https://fonts.googleapis.com/css?family=Roboto|Inconsolata|Roboto+Slab|Bitter')
 
 /* custom title font */
 title, h1, h2, h3, h4, h5, h6 {
-  font-family: 'Yeseva One', Times, serif;
+  font-family: 'Roboto Slab', 'Bitter', Times, serif;
   text-shadow: 4px 4px 4px #aaa;
   font-face: bold;
 }
 
 .navbar {
-  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+  background-color: #592C88;
+  color: #F2F2F2;
+  font-family: 'Roboto Slab', 'Bitter', sans-serif;
+  
 }
 
 /* Make the font big enough to actually read */

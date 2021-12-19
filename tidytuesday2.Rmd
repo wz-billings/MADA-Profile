@@ -445,7 +445,7 @@ Now let's do some models. This WOULD be a lot faster with a workflowset, but eve
 
 The first model I'll fit is the null model, which predicts the mean of the response for all predictions. Note that I am setting the seed before each model. My heart tells me that I don't have to do this, but my anxiety tells me that I should because this page takes so long to knit.
 
-```{r null model}
+```{r null model, cache = TRUE}
 set.seed(470)
 # Define the null model specification
 null_spec <-
@@ -493,7 +493,7 @@ There's not much to say about the null model--I think the RPD (ratio of performa
 
 Next I'll fit a simple multiple linear regression model.
 
-```{r mlr model}
+```{r mlr model, cache = TRUE}
 set.seed(470)
 
 # Create the MLR model spec
@@ -579,7 +579,7 @@ Now that the tuning method is ready, we can start to fit the models with hyperpa
 
 Next I'll fit a linear model with elastic net regularization--I'm tuning both the mixture and the penalty parameters in this case.
 
-```{r elastic net model}
+```{r elastic net model, cache = TRUE}
 set.seed(470)
 # Define model spec
 en_spec <-
@@ -630,7 +630,7 @@ Note that I am not going to worry about what the best-performing hyperparameter 
 
 Next I'll fit a $k$-nearest neighbors regression model. Note that for KNN, the tuning strategy I worked out before is actually really unnecessary. The model only has one integer-valued parameter, so instead of using my complex tuning setup, I'll literally just do a simple grid search. I decided to use the Epanechnikov kernel for weighting the KNN regressor, because that's just my go-to kernel for kernel density estimation. I couldn't find ANY could references on what makes the "optimal" kernel optimal, or when different kernels should be used, so if any statisticians read this and know, please tell me where I can read about this--I was even having trouble finding it in the `kknn` documentation so this is really just a guess.
 
-```{r knn model}
+```{r knn model, cache = TRUE}
 set.seed(470)
 # Create model spec
 knn_spec <-
@@ -682,7 +682,7 @@ Well, the KNN model certainly seems to perform better than the linear models we 
 
 Next up is a model I was really interested in. This is a rule-based model using the cubist algorithm, which sort of combines trees and linear models to produce a simple model which can automatically detect interactions. This should perform better than the MLR model, but I'm interested to see how well it performs compared to the various other tree-based methods I want to try.
 
-```{r cubist model}
+```{r cubist model, cache = TRUE}
 set.seed(470)
 cubist_spec <-
   cubist_rules(
@@ -728,7 +728,7 @@ Well, that certainly seems to be the best model so far. That definitely indicate
 
 Now I'll fit one simple regression tree.
 
-```{r CART model}
+```{r CART model, cache = TRUE}
 set.seed(470)
 tree_spec <-
   decision_tree(
@@ -774,7 +774,7 @@ The simple tree seems to perform roughly as well as the cubist model. I don't kn
 
 Now I'll try bagging (bootstrap aggregating) the tree model. I'll only use $B=10$ for this example, but I think in real life, $B=50$ or even higher is probably more appropriate; maybe it can also be tuned but I haven't tried that. I kind of think tuning the number of bootstraps is a bit silly anyways.
 
-```{r bagged tree}
+```{r bagged tree, cache = TRUE}
 set.seed(470)
 bag_spec <-
   bag_tree(
@@ -822,7 +822,7 @@ Next up I'll try a random forest. I love these things. (Can you tell I'm running
 
 Note that with the number of trees set, the remaining parameters are also two integers, one of which has a data-dependent range. So it really would be simpler to do a grid search for this model, but I've decided to go ahead and use the fancy Bayesian method because it makes me feel productive when my computer fans kick on high speed.
 
-```{r random forest model}
+```{r random forest model, cache = TRUE}
 set.seed(470)
 rf_spec <-
   rand_forest(
@@ -870,7 +870,7 @@ I'll also try a gradient-boosted tree approach. This tunes really slow but often
 
 I think it's the number of hyperparameters here that makes this model take so long to tune. I'm not sure which hyperparameters even really need to be tuned--there are very few candidate values for `mtry`, and I think `min_n` is probably fine to set manually or tune between a few small values only. But I don't know that much about figuring out the `tree_depth`, `learn_rate`, `loss_reduction`, or `sample_size` parameters, so I'm just letting the Bayesian iterative model tune those for me, especially since the latter three are real-valued.
 
-```{r gradient boosted tree}
+```{r gradient boosted tree, cache = TRUE}
 set.seed(470)
 xgb_spec <-
   boost_tree(
@@ -922,7 +922,7 @@ Now let's try some "fancier" methods just in case they can find something that I
 
 I couldn't decide what SVM kernel is appropriate, so here's the linear kernel SVM. I doubt that the data are linearly separable, but this is the fastest SVM model to train. I'm not sure what SVM can really do that tree-based models can't (especially with the linear kernel), but I just don't know that much about SVM so we can try it out anyways.
 
-```{r linear kernel SVM}
+```{r linear kernel SVM, cache = TRUE}
 set.seed(470)
 lsvm_spec <-
   svm_linear(
@@ -967,7 +967,7 @@ Ok yeah, the linear SVM was not great. This is a pretty strong indicator that th
 
 Next let's try the polynomial kernel. This is more flexible than the linear kernel, so we'll see if this performs any better.
 
-```{r polynomial kernel SVM}
+```{r polynomial kernel SVM, cache = TRUE}
 set.seed(470)
 psvm_spec <-
   svm_poly(
@@ -1014,7 +1014,7 @@ Ok, great. The polynomial kernel fits a lot better than the linear kernel. I don
 
 Since we are able to, I think we should go ahead and fit the most complicated kernel SVM. I don't really know much about this kernel, and I think this is the most "black box" out of the methods I've run so far. It just seems so esoteric, and I've definitely never heard of "Gaussian radial basis separability", this is very far away from the math I'm used to. But let's see if it fits well or not.
 
-```{r RBF SVM}
+```{r RBF SVM, cache = TRUE}
 set.seed(470)
 rsvm_spec <-
   svm_rbf(
@@ -1060,7 +1060,7 @@ Ok, so the fancy kernel SVM is a bit worse than the polynomial SVM. This probabl
 
 Finally I'll fit a simple type of neural net called a "multilayer perceptron." I don't know anything about this, including if it will be good or not, but I really doubt we have enough data to make this worthwhile. I expect this to perform better than the linear model, but not any better than the polynomial SVM or tree-based methods.
 
-```{r MLP}
+```{r MLP, cache = TRUE}
 set.seed(470)
 nnet_spec <- 
   mlp(
@@ -1156,7 +1156,7 @@ The RMSE does not necessarily support picking this model, which may mean that th
 
 Now we'll evaluate the random forest model on the test data.
 
-```{r test fit}
+```{r test fit, cache = TRUE}
 test_fit <- best_rf_wf %>%
   last_fit(split, metrics = model_metrics)
 ```

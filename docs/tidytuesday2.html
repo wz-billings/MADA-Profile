@@ -327,6 +327,9 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="https://wzbillings.com/">Home</a>
+</li>
+<li>
   <a href="./aboutme.html">About Me</a>
 </li>
 <li class="dropdown">
@@ -411,20 +414,20 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(marbles)</span></code></pre></div>
 <pre><code>## Rows: 256
 ## Columns: 14
-## $ date           &lt;chr&gt; &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15~
-## $ race           &lt;chr&gt; &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;,~
-## $ site           &lt;chr&gt; &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;~
-## $ source         &lt;chr&gt; &quot;https://youtu.be/JtsQ_UydjEI?t=356&quot;, &quot;https://youtu.be~
-## $ marble_name    &lt;chr&gt; &quot;Clementin&quot;, &quot;Starry&quot;, &quot;Momo&quot;, &quot;Yellow&quot;, &quot;Snowy&quot;, &quot;Razz~
-## $ team_name      &lt;chr&gt; &quot;O&#39;rangers&quot;, &quot;Team Galactic&quot;, &quot;Team Momo&quot;, &quot;Mellow Yell~
-## $ time_s         &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11,~
-## $ pole           &lt;chr&gt; &quot;P1&quot;, &quot;P2&quot;, &quot;P3&quot;, &quot;P4&quot;, &quot;P5&quot;, &quot;P6&quot;, &quot;P7&quot;, &quot;P8&quot;, &quot;P9&quot;, &quot;~
-## $ points         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ track_length_m &lt;dbl&gt; 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81,~
-## $ number_laps    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10,~
-## $ avg_time_lap   &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11,~
-## $ host           &lt;chr&gt; &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;~
-## $ notes          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~</code></pre>
+## $ date           &lt;chr&gt; &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-~
+## $ race           &lt;chr&gt; &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, ~
+## $ site           &lt;chr&gt; &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;~
+## $ source         &lt;chr&gt; &quot;https://youtu.be/JtsQ_UydjEI?t=356&quot;, &quot;https://youtu.be/JtsQ_UydjEI?t=356&quot;, &quot;https://youtu.be/JtsQ_UydjEI?t=356&quot;~
+## $ marble_name    &lt;chr&gt; &quot;Clementin&quot;, &quot;Starry&quot;, &quot;Momo&quot;, &quot;Yellow&quot;, &quot;Snowy&quot;, &quot;Razzy&quot;, &quot;Prim&quot;, &quot;Vespa&quot;, &quot;Hazy&quot;, &quot;Mallard&quot;, &quot;Wispy&quot;, &quot;Rojo Un~
+## $ team_name      &lt;chr&gt; &quot;O&#39;rangers&quot;, &quot;Team Galactic&quot;, &quot;Team Momo&quot;, &quot;Mellow Yellow&quot;, &quot;Snowballs&quot;, &quot;Raspberry Racers&quot;, &quot;Team Primary&quot;, &quot;Ho~
+## $ time_s         &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11, 29.34, 29.54, 29.98, 30.08, 30.29, 30.41, 31.12, 31.20, ~
+## $ pole           &lt;chr&gt; &quot;P1&quot;, &quot;P2&quot;, &quot;P3&quot;, &quot;P4&quot;, &quot;P5&quot;, &quot;P6&quot;, &quot;P7&quot;, &quot;P8&quot;, &quot;P9&quot;, &quot;P10&quot;, &quot;P11&quot;, &quot;P12&quot;, &quot;P13&quot;, &quot;P14&quot;, &quot;P15&quot;, &quot;P16&quot;, NA, NA, N~
+## $ points         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 25, 18, 15, 12, 11, 8, 6, 4, 2, 1, 0, 0, 0, 0, 0~
+## $ track_length_m &lt;dbl&gt; 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, ~
+## $ number_laps    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ~
+## $ avg_time_lap   &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11, 29.34, 29.54, 29.98, 30.08, 30.29, 30.41, 31.12, 31.20, ~
+## $ host           &lt;chr&gt; &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No~
+## $ notes          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</code></pre>
 <p>Ok, looks like there is some interesting stuff, but I can see clearly that there is some stuff that may not be informative. I’m going to not use the <code>source</code> variable at all, that one can be gone. I don’t know anything about marble racing and I am not planning to learn today, so I’m not entirely sure right now what all should go in the model though. My first thoughts is maybe the obvious one: we can use <code>race</code> as the ID variable and try to predict the winner of each race. Whether or not we can do this depends on how many unique marbles there are, so let’s go ahead and look at that.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> marbles</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model_data<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
@@ -1589,17 +1592,17 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(model_data)</span></code></pre></div>
 <pre><code>## Rows: 256
 ## Columns: 11
-## $ date           &lt;date&gt; 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 2020-0~
-## $ race           &lt;fct&gt; S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S~
-## $ site           &lt;fct&gt; Savage Speedway, Savage Speedway, Savage Speedway, Sava~
-## $ marble_name    &lt;fct&gt; Clementin, Starry, Momo, Yellow, Snowy, Razzy, Prim, Ve~
-## $ team_name      &lt;fct&gt; O&#39;rangers, Team Galactic, Team Momo, Mellow Yellow, Sno~
-## $ time_s         &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11,~
-## $ track_length_m &lt;dbl&gt; 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81,~
-## $ number_laps    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10,~
-## $ avg_time_lap   &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11,~
-## $ host           &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, No, No,~
-## $ has_notes      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~</code></pre>
+## $ date           &lt;date&gt; 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 2020-02-15, 202~
+## $ race           &lt;fct&gt; S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1Q1, S1R1, S1R1, S1R1~
+## $ site           &lt;fct&gt; Savage Speedway, Savage Speedway, Savage Speedway, Savage Speedway, Savage Speedway, Savage Speedway, Savage Spe~
+## $ marble_name    &lt;fct&gt; Clementin, Starry, Momo, Yellow, Snowy, Razzy, Prim, Vespa, Hazy, Mallard, Wispy, Rojo Uno, Shock, Sublime, Clut~
+## $ team_name      &lt;fct&gt; O&#39;rangers, Team Galactic, Team Momo, Mellow Yellow, Snowballs, Raspberry Racers, Team Primary, Hornets, Hazers, ~
+## $ time_s         &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11, 29.34, 29.54, 29.98, 30.08, 30.29, 30.41, 31.12, 31.20, ~
+## $ track_length_m &lt;dbl&gt; 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, ~
+## $ number_laps    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ~
+## $ avg_time_lap   &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.96, 29.11, 29.34, 29.54, 29.98, 30.08, 30.29, 30.41, 31.12, 31.20, ~
+## $ host           &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, No, No, No, Yes, No, No, No, No, Yes, No, No, No, No, No, No, No~
+## $ has_notes      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~</code></pre>
 <p>Yep, that looks ok I think.</p>
 <p>First I’ll plot the things that seem obvious to me: the number of laps and the track length should both be strongly predictive of the time it takes a marble to finish.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="sc">%&gt;%</span></span>
@@ -7911,13 +7914,13 @@ $(document).ready(function () {
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">mae</td>
 <td class="gt_row gt_left">standard</td>
-<td class="gt_row gt_right">0.5742921</td></tr>
+<td class="gt_row gt_right">0.5734065</td></tr>
     <tr><td class="gt_row gt_left">rmse</td>
 <td class="gt_row gt_left">standard</td>
-<td class="gt_row gt_right">1.0021229</td></tr>
+<td class="gt_row gt_right">1.0003629</td></tr>
     <tr><td class="gt_row gt_left">rpd</td>
 <td class="gt_row gt_left">standard</td>
-<td class="gt_row gt_right">5.2899661</td></tr>
+<td class="gt_row gt_right">5.2992727</td></tr>
   </tbody>
   
   

@@ -10,6 +10,8 @@ navbar:
   type: inverse
   title: "My Data Analysis Portfolio"
   left:
+    - text: "Home"
+      href: https://wzbillings.com/
     - text: "About Me"
       href: ./aboutme.html
     - text: "Projects"
