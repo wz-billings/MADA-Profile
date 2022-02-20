@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
 # Setup
 
-This analysis will use data on influenza patients from a [previous paper](https://datadryad.org/stash/dataset/doi:10.5061/dryad.51c59zw4v). For this analysis, analysis, I will go through some more data preprocessing, and fit a few basic ML models. The goal is to predict body temperature based on symptom data. The models I will fit in this analysis are:
+This analysis will use data on influenza patients from a [previous paper](https://datadryad.org/stash/dataset/doi:10.5061/dryad.51c59zw4v). For this analysis, I will go through some more data preprocessing, and fit a few basic ML models. The goal is to predict body temperature based on symptom data. The models I will fit in this analysis are:
 1. Regression tree;
 2. LASSO regression; and
 3. Random forest.

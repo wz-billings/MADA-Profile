@@ -429,16 +429,18 @@ $(document).ready(function () {
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>year, <span class="sc">-</span>month, <span class="sc">-</span>user_nber, <span class="sc">-</span>user_repec, <span class="sc">-</span>program, <span class="sc">-</span>author)</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat)</span></code></pre></div>
-<pre><code>## Rows: 128,565
-## Columns: 7
-## $ paper            &lt;chr&gt; &quot;w0074&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0107&quot;, &quot;w0116&quot;, &quot;w0117&quot;, &quot;w0129&quot;, &quot;w0131&quot;, &quot;w0131&quot;, &quot;w0131&quot;, &quot;w~
-## $ catalogue_group  &lt;fct&gt; General, General, General, General, General, General, General, General, General, General, General, General, Ge~
-## $ paper_date       &lt;date&gt; 1975-03-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-10-01, 1975-11-01, 1980-04-01, 1976-03-01, 1~
-## $ title            &lt;chr&gt; &quot;Variation Across Household in the Rate of Inflation&quot;, &quot;Exports and Foreign Investment in the Pharmaceutical I~
-## $ name             &lt;chr&gt; &quot;Robert T Michael&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Robert E Lipsey&quot;, &quot;Robert E Lipsey&quot;, &quot;Michael J B~
-## $ program_desc     &lt;fct&gt; &quot;Economic Fluctuations and Growth&quot;, &quot;International Finance and Macroeconomics&quot;, &quot;International Trade and Inves~
-## $ program_category &lt;fct&gt; Macro, Macro, Macro, Macro, Macro, Micro, Micro, Micro, Micro, Macro, Macro, Macro, Macro, Micro, Micro, Micro~</code></pre>
-<p>We can see that the data has 128565 records while there are only 28952 paper IDs in the dataset, so each paper is currently represented by multiple records. I suspect that this occurs when papers have either multiple authors or associated programs.</p>
+<pre><code>## Rows: 133,503
+## Columns: 9
+## $ paper            &lt;chr&gt; &quot;w0074&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0087&quot;, &quot;w0107&quot;, &quot;w~
+## $ catalogue_group  &lt;fct&gt; General, General, General, General, General, General, Ge~
+## $ paper_date       &lt;date&gt; 1975-03-01, 1975-05-01, 1975-05-01, 1975-05-01, 1975-05~
+## $ title            &lt;chr&gt; &quot;Variation Across Household in the Rate of Inflation&quot;, &quot;~
+## $ name             &lt;chr&gt; &quot;Robert T Michael&quot;, &quot;Merle Yahr Weiss&quot;, &quot;Merle Yahr Weis~
+## $ female           &lt;dbl&gt; 0, -1, -1, 0, 0, 0, 0, 1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0~
+## $ sex_source       &lt;dbl&gt; 1, -2, -2, 1, 1, 1, 1, 1, 1, -2, -2, 1, 1, 1, 1, 1, 1, 1~
+## $ program_desc     &lt;fct&gt; &quot;Economic Fluctuations and Growth&quot;, &quot;International Finan~
+## $ program_category &lt;fct&gt; Macro, Macro, Macro, Macro, Macro, Micro, Micro, Micro, ~</code></pre>
+<p>We can see that the data has 133503 records while there are only 29597 paper IDs in the dataset, so each paper is currently represented by multiple records. I suspect that this occurs when papers have either multiple authors or associated programs.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(paper, name) <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(paper) <span class="sc">%&gt;%</span></span>
@@ -499,15 +501,15 @@ Most papers have 4 or less associated programs, however some have up to 14.
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(LUT, <span class="at">by =</span> <span class="st">&quot;paper&quot;</span>)</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat2)</span></code></pre></div>
-<pre><code>## Rows: 28,952
+<pre><code>## Rows: 29,597
 ## Columns: 7
-## $ paper        &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;h0009&quot;, &quot;h0010&quot;, &quot;h0011&quot;, &quot;h0012&quot;, &quot;h0013~
-## $ authors      &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ransom&quot;, &quot;Clayne L Pope, David W Galenson&quot;, ~
-## $ num_authors  &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1, 1, 2, 2, ~
-## $ program_cats &lt;chr&gt; &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro~
-## $ programs     &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Economy&quot;, &quot;Development of the American Economy~
-## $ title        &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elasticities, Entitlements, Chronic Malnutriti~
-## $ paper_date   &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, 1989-10-01, 1989-12-01, 1989-12-01, 1989-~</code></pre>
+## $ paper        &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007~
+## $ authors      &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch~
+## $ num_authors  &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, ~
+## $ program_cats &lt;chr&gt; &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro&quot;, &quot;Micro~
+## $ programs     &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the A~
+## $ title        &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines~
+## $ paper_date   &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01,~</code></pre>
 <p>After looking at the data, I think that there are a few interesting questions we could ask using topic modeling, which is what I really wanted to do when I saw this dataset. My heart’s desire is to try and predict which categories a paper will have based on information like the title, date, number of authors, etc. (Not sure what other predictors might be derived from this dataset.) Note that each paper can have more than one category. We’ll address this issue in a bit.</p>
 </div>
 <div id="data-exploration" class="section level1">
@@ -522,17 +524,17 @@ Most papers have 4 or less associated programs, however some have up to 14.
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat3)</span></code></pre></div>
-<pre><code>## Rows: 28,952
+<pre><code>## Rows: 29,597
 ## Columns: 9
-## $ paper                &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;, &quot;h0007&quot;, &quot;h0008&quot;, &quot;h0009&quot;, &quot;h0010&quot;, &quot;h0011&quot;, &quot;h0012&quot;~
-## $ authors              &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard C Sutch, Roger L Ransom&quot;, &quot;Clayne L Pope, David W Gal~
-## $ num_authors          &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1, 1~
-## $ programs             &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development of the American Economy&quot;, &quot;Development of the American~
-## $ title                &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger: Famines, Price Elasticities, Entitlements, Chronic Ma~
-## $ paper_date           &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 1989-08-01, 1989-08-01, 1989-10-01, 1989-12-01, 1989-12-0~
-## $ program_cats_Finance &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
-## $ program_cats_Macro   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1~
-## $ program_cats_Micro   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~</code></pre>
+## $ paper                &lt;chr&gt; &quot;h0001&quot;, &quot;h0002&quot;, &quot;h0003&quot;, &quot;h0004&quot;, &quot;h0005&quot;, &quot;h0006&quot;~
+## $ authors              &lt;chr&gt; &quot;Robert William Fogel&quot;, &quot;Michael R Haines&quot;, &quot;Richard~
+## $ num_authors          &lt;int&gt; 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 1, 1, 1~
+## $ programs             &lt;chr&gt; &quot;Development of the American Economy&quot;, &quot;Development ~
+## $ title                &lt;chr&gt; &quot;Second Thoughts on the European Escape from Hunger:~
+## $ paper_date           &lt;date&gt; 1989-05-01, 1989-05-01, 1989-05-01, 1989-05-01, 198~
+## $ program_cats_Finance &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ program_cats_Macro   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ program_cats_Micro   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~</code></pre>
 <p>Having a version of this data in long form will be helpful as well.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat3_long <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -630,7 +632,8 @@ The trend for years shows exactly the same trend as the previous plots, indicati
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_category, <span class="at">group =</span> name), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;mean number of papers released&quot;</span>, <span class="at">y =</span> <span class="st">&quot;month&quot;</span>)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups`
+## argument.</code></pre>
 <div class="figure">
 <img src="tidytuesday_files/figure-html/month%20counts-1.png" alt="A horizontal bar chart with three facets. The first facet (starting from the right) is for the finance category, the middle is for the macro category, and the left is for the micro category. All three charts show the mean number of papers published on the x-axis and the month on the y-axis. Each facet has a dashed line indicating the overall mean for each category." width="672" />
 <p class="caption">
@@ -829,11 +832,11 @@ Distribution of classes for each category. The closer a bar is to the middle, th
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">TRUE</span> </span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## i 1 of 3 tuning:     micro_mod</code></pre>
-<pre><code>## v 1 of 3 tuning:     micro_mod (3m 37.7s)</code></pre>
+<pre><code>## v 1 of 3 tuning:     micro_mod (2m 7.6s)</code></pre>
 <pre><code>## i 2 of 3 tuning:     macro_mod</code></pre>
-<pre><code>## v 2 of 3 tuning:     macro_mod (2m 55.9s)</code></pre>
+<pre><code>## v 2 of 3 tuning:     macro_mod (1m 32.2s)</code></pre>
 <pre><code>## i 3 of 3 tuning:     finance_mod</code></pre>
-<pre><code>## v 3 of 3 tuning:     finance_mod (2m 39s)</code></pre>
+<pre><code>## v 3 of 3 tuning:     finance_mod (3m 10.8s)</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It&#39;s always polite to close your cluster when you finish</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>doParallel<span class="sc">::</span><span class="fu">stopImplicitCluster</span>()</span></code></pre></div>
 <p>Now that the models are tuned, we need to extract them. Unfortunately there isn’t really a slick way to do this 🙄, hopefully the tidymodels team will expand <code>workflow_map</code> capabilities in the future to make this easier. I also think I am using it differently from how the creators intended here, but that has never stopped me before.</p>
@@ -867,170 +870,58 @@ Distribution of classes for each category. The closer a bar is to the middle, th
 <tr class="odd">
 <td align="left">finance</td>
 <td align="left">-10.0000</td>
-<td align="left">0.7778</td>
-<td align="left">0.3272</td>
-<td align="left">0.0024</td>
+<td align="left">0.4444</td>
+<td align="left">0.3301</td>
+<td align="left">0.0028</td>
 </tr>
 <tr class="even">
 <td align="left">finance</td>
 <td align="left">-8.8889</td>
-<td align="left">0.7778</td>
-<td align="left">0.3272</td>
-<td align="left">0.0024</td>
+<td align="left">0.4444</td>
+<td align="left">0.3301</td>
+<td align="left">0.0028</td>
 </tr>
 <tr class="odd">
 <td align="left">finance</td>
 <td align="left">-7.7778</td>
-<td align="left">0.7778</td>
-<td align="left">0.3272</td>
-<td align="left">0.0024</td>
+<td align="left">0.4444</td>
+<td align="left">0.3301</td>
+<td align="left">0.0028</td>
 </tr>
 <tr class="even">
 <td align="left">finance</td>
 <td align="left">-6.6667</td>
-<td align="left">0.7778</td>
-<td align="left">0.3272</td>
-<td align="left">0.0024</td>
+<td align="left">0.4444</td>
+<td align="left">0.3301</td>
+<td align="left">0.0028</td>
 </tr>
 <tr class="odd">
 <td align="left">finance</td>
 <td align="left">-5.5556</td>
-<td align="left">0.7778</td>
-<td align="left">0.3272</td>
-<td align="left">0.0024</td>
+<td align="left">0.4444</td>
+<td align="left">0.3301</td>
+<td align="left">0.0028</td>
 </tr>
 <tr class="even">
 <td align="left">finance</td>
 <td align="left">-4.4444</td>
-<td align="left">0.7778</td>
-<td align="left">0.3272</td>
-<td align="left">0.0024</td>
+<td align="left">0.4444</td>
+<td align="left">0.3301</td>
+<td align="left">0.0028</td>
 </tr>
 <tr class="odd">
 <td align="left">macro</td>
-<td align="left">-10.0000</td>
-<td align="left">0.5556</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="even">
-<td align="left">macro</td>
-<td align="left">-8.8889</td>
-<td align="left">0.5556</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">macro</td>
-<td align="left">-7.7778</td>
-<td align="left">0.5556</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="even">
-<td align="left">macro</td>
-<td align="left">-6.6667</td>
-<td align="left">0.5556</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">macro</td>
-<td align="left">-5.5556</td>
-<td align="left">0.5556</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="even">
-<td align="left">macro</td>
-<td align="left">-4.4444</td>
-<td align="left">0.5556</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">macro</td>
-<td align="left">-10.0000</td>
-<td align="left">0.6667</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="even">
-<td align="left">macro</td>
-<td align="left">-8.8889</td>
-<td align="left">0.6667</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">macro</td>
-<td align="left">-7.7778</td>
-<td align="left">0.6667</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="even">
-<td align="left">macro</td>
-<td align="left">-6.6667</td>
-<td align="left">0.6667</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">macro</td>
-<td align="left">-5.5556</td>
-<td align="left">0.6667</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="even">
-<td align="left">macro</td>
-<td align="left">-4.4444</td>
-<td align="left">0.6667</td>
-<td align="left">0.4504</td>
-<td align="left">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">micro</td>
-<td align="left">-10.0000</td>
+<td align="left">-2.2222</td>
 <td align="left">0.8889</td>
-<td align="left">0.4862</td>
-<td align="left">0.0046</td>
+<td align="left">0.4481</td>
+<td align="left">0.0015</td>
 </tr>
 <tr class="even">
 <td align="left">micro</td>
-<td align="left">-8.8889</td>
-<td align="left">0.8889</td>
-<td align="left">0.4862</td>
-<td align="left">0.0046</td>
-</tr>
-<tr class="odd">
-<td align="left">micro</td>
-<td align="left">-7.7778</td>
-<td align="left">0.8889</td>
-<td align="left">0.4862</td>
-<td align="left">0.0046</td>
-</tr>
-<tr class="even">
-<td align="left">micro</td>
-<td align="left">-6.6667</td>
-<td align="left">0.8889</td>
-<td align="left">0.4862</td>
-<td align="left">0.0046</td>
-</tr>
-<tr class="odd">
-<td align="left">micro</td>
-<td align="left">-5.5556</td>
-<td align="left">0.8889</td>
-<td align="left">0.4862</td>
-<td align="left">0.0046</td>
-</tr>
-<tr class="even">
-<td align="left">micro</td>
-<td align="left">-4.4444</td>
-<td align="left">0.8889</td>
-<td align="left">0.4862</td>
-<td align="left">0.0046</td>
+<td align="left">-3.3333</td>
+<td align="left">0.6667</td>
+<td align="left">0.4847</td>
+<td align="left">0.0023</td>
 </tr>
 </tbody>
 </table>

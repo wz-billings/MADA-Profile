@@ -384,7 +384,7 @@ $(document).ready(function () {
 
 <div id="setup" class="section level1">
 <h1>Setup</h1>
-<p>This analysis will use data on influenza patients from a <a href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.51c59zw4v">previous paper</a>. For this analysis, analysis, I will go through some more data preprocessing, and fit a few basic ML models. The goal is to predict body temperature based on symptom data. The models I will fit in this analysis are: 1. Regression tree; 2. LASSO regression; and 3. Random forest.</p>
+<p>This analysis will use data on influenza patients from a <a href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.51c59zw4v">previous paper</a>. For this analysis, I will go through some more data preprocessing, and fit a few basic ML models. The goal is to predict body temperature based on symptom data. The models I will fit in this analysis are: 1. Regression tree; 2. LASSO regression; and 3. Random forest.</p>
 <p>First we will load necessary packages (due to past trauma I always load all packages at the beginning of the analysis), and import the clean data.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># For file paths</span></span>
@@ -431,32 +431,32 @@ $(document).ready(function () {
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dat)</span></code></pre></div>
 <pre><code>## Rows: 730
 ## Columns: 26
-## $ SwollenLymphNodes &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, No, Yes, Yes, No, Yes, Yes, No, No, Yes, Yes, Yes, No, Yes, No, Yes~
-## $ ChestCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, No, Yes, Y~
-## $ ChillsSweats      &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes~
-## $ NasalCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, No, No, Yes, Y~
-## $ Sneeze            &lt;fct&gt; No, No, Yes, Yes, No, Yes, No, Yes, No, No, No, No, No, Yes, No, Yes, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, ~
-## $ Fatigue           &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes,~
-## $ SubjectiveFever   &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, No, Yes, No, Yes, Yes, No, Yes, Yes, No, Yes, Yes,~
-## $ Headache          &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, ~
-## $ RunnyNose         &lt;fct&gt; No, No, Yes, Yes, No, No, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, No, Yes, Yes, Ye~
-## $ AbPain            &lt;fct&gt; No, No, Yes, No, No, No, No, No, No, No, Yes, Yes, No, No, No, No, No, No, No, No, No, No, Yes, No, Yes, No, ~
-## $ ChestPain         &lt;fct&gt; No, No, Yes, No, No, Yes, Yes, No, No, No, No, Yes, No, Yes, No, No, Yes, Yes, Yes, No, Yes, No, Yes, Yes, No~
-## $ Diarrhea          &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, No, No, No, No, No, No, No, No, Yes, No, No, No, No, No, No, Yes~
-## $ EyePn             &lt;fct&gt; No, No, No, No, Yes, No, No, No, No, No, Yes, No, Yes, No, No, No, No, No, No, Yes, No, No, No, No, No, Yes, ~
-## $ Insomnia          &lt;fct&gt; No, No, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, ~
-## $ ItchyEye          &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, Yes, Yes, No, No, No, No, No, Yes, No, Yes, No, No, No, Yes, ~
-## $ Nausea            &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Yes, No, No, Yes, No, Yes, Yes, Yes, No, No, Yes, No,~
-## $ EarPn             &lt;fct&gt; No, Yes, No, Yes, No, No, No, No, No, No, No, Yes, Yes, No, Yes, No, No, Yes, No, No, Yes, Yes, Yes, Yes, Yes~
-## $ Pharyngitis       &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Yes, Yes,~
-## $ Breathless        &lt;fct&gt; No, No, Yes, No, No, Yes, No, No, No, Yes, No, Yes, Yes, Yes, No, No, Yes, Yes, No, No, Yes, No, Yes, No, Yes~
-## $ ToothPn           &lt;fct&gt; No, No, Yes, No, No, No, No, No, Yes, No, No, Yes, No, No, No, No, No, Yes, No, Yes, No, Yes, Yes, No, Yes, N~
-## $ Vomit             &lt;fct&gt; No, No, No, No, No, No, Yes, No, No, No, Yes, Yes, No, No, No, No, No, No, No, No, No, No, No, No, No, Yes, N~
-## $ Wheeze            &lt;fct&gt; No, No, No, Yes, No, Yes, No, No, No, No, No, Yes, No, Yes, No, No, No, Yes, No, No, Yes, No, No, No, Yes, No~
-## $ Weakness          &lt;ord&gt; Mild, Severe, Severe, Severe, Moderate, Moderate, Mild, Severe, Moderate, Moderate, Severe, Severe, Moderate,~
-## $ Cough             &lt;ord&gt; Severe, Severe, Mild, Moderate, None, Moderate, Severe, Moderate, Moderate, Moderate, Mild, Severe, Mild, Sev~
-## $ Myalgia           &lt;ord&gt; Mild, Severe, Severe, Severe, Mild, Moderate, Mild, Severe, Moderate, Mild, Severe, Severe, Moderate, Severe,~
-## $ BodyTemp          &lt;dbl&gt; 98.3, 100.4, 100.8, 98.8, 100.5, 98.4, 102.5, 98.4, 98.5, 97.8, 98.2, 97.9, 99.0, 101.9, 98.1, 99.2, 99.3, 98~</code></pre>
+## $ SwollenLymphNodes &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, No, Yes, Yes,~
+## $ ChestCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes,~
+## $ ChillsSweats      &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes~
+## $ NasalCongestion   &lt;fct&gt; No, Yes, Yes, Yes, No, No, No, Yes, Yes, Yes, Yes, Yes,~
+## $ Sneeze            &lt;fct&gt; No, No, Yes, Yes, No, Yes, No, Yes, No, No, No, No, No,~
+## $ Fatigue           &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, ~
+## $ SubjectiveFever   &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Y~
+## $ Headache          &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes, Yes, Yes, Y~
+## $ RunnyNose         &lt;fct&gt; No, No, Yes, Yes, No, No, Yes, Yes, Yes, Yes, No, No, Y~
+## $ AbPain            &lt;fct&gt; No, No, Yes, No, No, No, No, No, No, No, Yes, Yes, No, ~
+## $ ChestPain         &lt;fct&gt; No, No, Yes, No, No, Yes, Yes, No, No, No, No, Yes, No,~
+## $ Diarrhea          &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, No, No, No~
+## $ EyePn             &lt;fct&gt; No, No, No, No, Yes, No, No, No, No, No, Yes, No, Yes, ~
+## $ Insomnia          &lt;fct&gt; No, No, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes, Yes,~
+## $ ItchyEye          &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, Yes, Ye~
+## $ Nausea            &lt;fct&gt; No, No, Yes, Yes, Yes, Yes, No, No, Yes, Yes, Yes, Yes,~
+## $ EarPn             &lt;fct&gt; No, Yes, No, Yes, No, No, No, No, No, No, No, Yes, Yes,~
+## $ Pharyngitis       &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, No, No, Yes, Yes~
+## $ Breathless        &lt;fct&gt; No, No, Yes, No, No, Yes, No, No, No, Yes, No, Yes, Yes~
+## $ ToothPn           &lt;fct&gt; No, No, Yes, No, No, No, No, No, Yes, No, No, Yes, No, ~
+## $ Vomit             &lt;fct&gt; No, No, No, No, No, No, Yes, No, No, No, Yes, Yes, No, ~
+## $ Wheeze            &lt;fct&gt; No, No, No, Yes, No, Yes, No, No, No, No, No, Yes, No, ~
+## $ Weakness          &lt;ord&gt; Mild, Severe, Severe, Severe, Moderate, Moderate, Mild,~
+## $ Cough             &lt;ord&gt; Severe, Severe, Mild, Moderate, None, Moderate, Severe,~
+## $ Myalgia           &lt;ord&gt; Mild, Severe, Severe, Severe, Mild, Moderate, Mild, Sev~
+## $ BodyTemp          &lt;dbl&gt; 98.3, 100.4, 100.8, 98.8, 100.5, 98.4, 102.5, 98.4, 98.~</code></pre>
 </div>
 <div id="modeling-setup" class="section level1">
 <h1>Modeling setup</h1>
@@ -1233,6 +1233,8 @@ $(document).ready(function () {
   font-weight: initial;
   padding-top: 4px;
   padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
@@ -1243,6 +1245,8 @@ $(document).ready(function () {
   font-weight: initial;
   padding-top: 0;
   padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -1321,7 +1325,10 @@ $(document).ready(function () {
 }
 
 #nknkitkmmw .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1393,7 +1400,26 @@ $(document).ready(function () {
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nknkitkmmw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nknkitkmmw .gt_row_group_first td {
+  border-top-width: 2px;
 }
 
 #nknkitkmmw .gt_summary_row {
@@ -1407,13 +1433,22 @@ $(document).ready(function () {
 }
 
 #nknkitkmmw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nknkitkmmw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nknkitkmmw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #nknkitkmmw .gt_grand_summary_row {
@@ -1466,7 +1501,10 @@ $(document).ready(function () {
 #nknkitkmmw .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #nknkitkmmw .gt_sourcenotes {
@@ -1485,7 +1523,10 @@ $(document).ready(function () {
 
 #nknkitkmmw .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #nknkitkmmw .gt_left {
@@ -1520,7 +1561,31 @@ $(document).ready(function () {
 #nknkitkmmw .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#nknkitkmmw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nknkitkmmw .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#nknkitkmmw .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#nknkitkmmw .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
 }
 </style>
 <table class="gt_table">

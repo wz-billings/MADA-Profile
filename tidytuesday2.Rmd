@@ -439,7 +439,7 @@ cl <- makePSOCKcluster(30)
 doParallel::registerDoParallel(cl)
 ```
 
-Now let's do some models. This WOULD be a lot faster with a workflowset, but every time I try that it's just absolutely busted and I run into new errors that I literally cannot solve while using the workflowset. So I'll just repeat a lot of code and have 1000 lines of code for this project. I hope that `workflowsets` becomes easier to use in the future. (Author's note: I actually tried using a workflowset, but got errors that just don't happen when I ran the exact same code outside of `workflow_map()`. So what else am I supposed to conclude?)
+Now let's do some models. This WOULD be a lot faster with a workflowset, but I ran into some problems that seemed quite time consuming to debug. So I'll just repeat a lot of code and have 1000 lines of code for this project. (Author's note: I actually tried using a workflowset, but got errors that just don't happen when I ran the exact same code outside of `workflow_map()`. I hope that `workflowsets` continues to mature, but I didn't have time to solve my issues for this assignment!)
 
 ## Null model
 
@@ -818,7 +818,7 @@ Interesing, it looks like the bagged tree performance is almost exactly the same
 
 ## Random forest model
 
-Next up I'll try a random forest. I love these things. (Can you tell I'm running out of things to say for each model? If `workflowsets` was easier to use I wouldn't even have to have all these little remarks.) Note that I didn't even train the `trees` hyperparameter here. Once I watched a video where I think that Julia Silge said that 2000 trees usually works well (though I don't have the citation immediately, I'll link it if I find it and remember) so I just set that. Apologies to Julia if she didn't actually say that. (Also apologies to Julia for complaining about `workflowsets`. I know she works very hard).
+Next up I'll try a random forest. I love these things. (Can you tell I'm running out of things to say for each model?) Note that I didn't even train the `trees` hyperparameter here. Once I watched a video where I think that Julia Silge said that 2000 trees usually works well (though I don't have the citation immediately, I'll link it if I find it and remember) so I just set that. I apologize to Julia if she didn't actually say that.
 
 Note that with the number of trees set, the remaining parameters are also two integers, one of which has a data-dependent range. So it really would be simpler to do a grid search for this model, but I've decided to go ahead and use the fancy Bayesian method because it makes me feel productive when my computer fans kick on high speed.
 
